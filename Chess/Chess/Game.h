@@ -1,0 +1,20 @@
+#pragma once
+#include "Map.h"
+#include "Player.h"
+#include "Tools.h"
+
+class Game
+{
+private:
+	Map map;
+	Player p1;
+	Player p2;
+
+	sf::RenderWindow window;
+public:
+
+	void loop();
+
+	Game();
+};
+
