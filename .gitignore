@@ -1,0 +1,12 @@
+.vs/
+x64/
+Chess/x64
+*.tlog
+*.obj
+*.log
+*.pdb
+*.idb
+*.ilk
+*.exe
+*.recipe
+*.*.recipe
