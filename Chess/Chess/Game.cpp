@@ -3,12 +3,15 @@
 void Game::loop()
 {
 	float cd = 0.f;
-	bool p1played = false;
 	bool p1turn = true;
-	bool p2played = true;
+	bool p1played = false;
 	bool p2turn = false;
+	bool p2played = true;
+
 	bool isRunning = true;
+
 	sf::Vector2i clickedPiece = { 0, 0 };
+
 	while (isRunning)
 	{
 		cd += GetDeltaTime();
@@ -27,12 +30,14 @@ void Game::loop()
 				if (event.key.code == sf::Keyboard::Escape)
 					window.close();
 			}
+
 			if (p1played)
 			{
 				p1turn = false;
 				p2turn = true;
 				p1played = false;
 			}
+
 			if (p2played)
 			{
 				p2turn = false;
@@ -48,12 +53,10 @@ void Game::loop()
 						clickedPiece = { x, y };
 						p1.resetPossibleMoves();
 						p1.getPossibleMoves(x, y, p2.getPieces());
-
 					}
 					else if (p1.getPieces().returnPiece(x, y) == 7)
 					{
 						p1played = p1.move(x, y, clickedPiece);
-						p1.resetPossibleMoves();
 					}
 					else if (p1.getPieces().returnPiece(x, y) == 8)
 					{
@@ -69,7 +72,9 @@ void Game::loop()
 						p2.getPossibleMoves(x, y, p1.getPieces());
 					}
 					else if (p2.getPieces().returnPiece(x, y) == 7)
+					{
 						p2played = p2.move(x, y, clickedPiece);
+					}
 					else if (p2.getPieces().returnPiece(x, y) == 8)
 					{
 						p2played = p2.eat(x, y, clickedPiece, p1);
