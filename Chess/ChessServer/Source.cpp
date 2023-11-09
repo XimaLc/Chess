@@ -10,17 +10,18 @@ int main()
 	sf::UdpSocket socket;
 	unsigned short port = 8888;
 
-	std::string messageIn
+	char in[128];
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
 	
 	while (true)
 	{
+
 	if (socket.bind(port) != sf::Socket::Status::Done)
 		return 0;
 
-	std::cout << "Server listening on " <<  << port << std::endl;
+	std::cout << "Server listening on port " << port << std::endl;
 
 
 	if (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Status::Done)
