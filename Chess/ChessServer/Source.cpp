@@ -29,11 +29,10 @@ int main()
 
 	std::cout << "Message recu de " << sender << " : " << in << std::endl;
 
-	const char* out = "Hi, I'm the server ! ";
-	if (socket.send(out, sizeof(out), sender, senderPort) != sf::Socket::Status::Done)
+	if (socket.send(in, sizeof(in), sender, senderPort) != sf::Socket::Status::Done)
 		return 0;
 
-	std::cout << "Message envoye a " << out << std::endl;
+	std::cout << "Message envoye a " << sender << std::endl;
 	}
 
 	return 0;
