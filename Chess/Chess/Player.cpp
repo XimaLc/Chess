@@ -92,10 +92,29 @@ bool Player::move(int _x, int _y, sf::Vector2i _piece)
 	return true;
 }
 
+bool Player::move(int _x, int _y, int _prevX, int _prevY)
+{
+	int piece = pieces.returnPiece(_prevX, _prevY);
+	pieces.editPiece(_prevX, _prevY, 6);
+	pieces.editPiece(_x, _y, piece);
+	pieces.resetPossibleMoves();
+	return true;
+}
+
 bool Player::eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent)
 {
 	int piece = pieces.returnPiece(_piece);
 	pieces.editPiece(_piece, 6);
+	pieces.editPiece(_x, _y, piece);
+	oppenent.editPiece(_x, _y, 6);
+	pieces.resetPossibleMoves();
+	return true;
+}
+
+bool Player::eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent)
+{
+	int piece = pieces.returnPiece(_prevX, _prevY);
+	pieces.editPiece(_prevX, _prevY, 6);
 	pieces.editPiece(_x, _y, piece);
 	oppenent.editPiece(_x, _y, 6);
 	pieces.resetPossibleMoves();

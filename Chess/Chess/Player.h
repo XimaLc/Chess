@@ -28,6 +28,8 @@ public:
 	void editPiece(int _x, int _y, int _piece);
 
 	bool move(int _x, int _y, sf::Vector2i _piece);
+	bool move(int _x, int _y, int _prevX, int _prevY);
 	bool eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent);
+	bool eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent);
 };
 

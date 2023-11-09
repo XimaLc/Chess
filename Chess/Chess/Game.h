@@ -14,7 +14,7 @@ private:
 
 	sf::RenderWindow window;
 public:
-
+	void convert(int &_pos);
 	void loop();
 
 	Game();
