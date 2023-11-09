@@ -94,6 +94,374 @@ void Map::draw(sf::RenderWindow& _window)
     }
 }
 
+void Map::showKingMoves(int _x, int _y, Map _oppenentMap)
+{
+    if (_y < 7)
+    {
+        if (_oppenentMap.returnPiece(_x, _y+1) != 6)
+            editPiece(_x, _y + 1, 8);
+        else if (map[(_x) + (_y + 1) * 8].x == 6)
+            editPiece(_x, _y + 1, 7);
+    }
+    if (_y > 0)
+    {
+        if (_oppenentMap.returnPiece(_x, _y - 1) != 6)
+            editPiece(_x, _y - 1, 8);
+        else if (map[(_x)+(_y - 1) * 8].x == 6)
+            editPiece(_x, _y - 1, 7);
+    }
+    if (_x < 7)
+    {
+        if (_oppenentMap.returnPiece(_x + 1, _y) != 6)
+            editPiece(_x + 1, _y, 8);
+        else if (map[(_x + 1)+(_y) * 8].x == 6)
+            editPiece(_x + 1, _y, 7);
+    }
+    if (_x > 0)
+    {
+        if (_oppenentMap.returnPiece(_x - 1, _y) != 6)
+            editPiece(_x - 1, _y, 8);
+        else if (map[(_x - 1) + (_y) * 8].x == 6)
+            editPiece(_x - 1, _y, 7);
+    }
+    if (_y > 0 && _x < 7)
+    {
+        if (_oppenentMap.returnPiece(_x + 1 , _y - 1) != 6)
+            editPiece(_x + 1, _y - 1, 8);
+        else if (map[(_x + 1)+(_y - 1) * 8].x == 6)
+            editPiece(_x + 1, _y - 1, 7);
+    }
+    if (_y > 0 && _x > 0)
+    {
+        if (_oppenentMap.returnPiece(_x - 1, _y - 1) != 6)
+            editPiece(_x - 1, _y - 1, 8);
+        else if (map[(_x - 1)+(_y - 1) * 8].x == 6)
+            editPiece(_x - 1, _y - 1, 7);
+    }
+    if (_y < 7 && _x < 7)
+    {
+        if (_oppenentMap.returnPiece(_x + 1, _y + 1) != 6)
+            editPiece(_x + 1, _y + 1, 8);
+        else if (map[(_x + 1)+(_y + 1) * 8].x == 6)
+            editPiece(_x + 1, _y + 1, 7);
+    }
+    if (_y < 7 && _x > 0)
+    {
+        if (_oppenentMap.returnPiece(_x - 1, _y + 1) != 6)
+            editPiece(_x - 1, _y + 1, 8);
+        else if (map[(_x - 1)+(_y + 1) * 8].x == 6)
+            editPiece(_x - 1, _y + 1, 7);
+    }
+
+}
+void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
+{
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y-i >= 0)
+        {
+            int piece = returnPiece(_x, _y - i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x, _y - i);
+            if (piece != 6)
+                i = 8;
+                
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x, _y - i, 7);
+
+
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x, _y - i, 8);
+                i = 8;
+            }
+
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y+i <= 7)
+        {
+            int piece = returnPiece(_x, _y + i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x, _y + i);
+
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x, _y + i, 7);
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x, _y + i, 8);
+                i = 8;
+            }
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_x - i >= 0)
+        {
+            int piece = returnPiece(_x - i, _y);
+            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y);
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x - i, _y, 7);
+
+
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x - i, _y, 8);
+                i = 8;
+            }
+
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_x + i <= 7)
+        {
+            int piece = returnPiece(_x + i, _y);
+            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y);
+
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x + i, _y, 7);
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x + i, _y, 8);
+                i = 8;
+            }
+        }
+    }
+}
+void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
+{
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y - i >= 0 && _x - i >= 0)
+        {
+            int piece = returnPiece(_x - i, _y - i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y - i);
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x - i, _y - i, 7);
+
+
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x - i, _y - i, 8);
+                i = 8;
+            }
+
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y + i <= 7 && _x + i <= 7)
+        {
+            int piece = returnPiece(_x + i, _y + i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y + i);
+
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x + i, _y + i, 7);
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x + i, _y + i, 8);
+                i = 8;
+            }
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y - i >= 0 && _x + i <= 7) 
+        {
+            int piece = returnPiece(_x + i, _y - i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y - i);
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x + i, _y - i, 7 );
+
+
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x + i, _y - i, 8);
+                i = 8;
+            }
+
+        }
+    }
+    for (int i = 1; i < 8; i++)
+    {
+        if (_y + i <= 7 && _x - i >= 0)
+        {
+            int piece = returnPiece(_x - i, _y + i);
+            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y + i);
+
+            if (piece != 6)
+                i = 8;
+
+            if (piece == 6 && oppenentPiece == 6)
+                editPiece(_x - i, _y + i, 7);
+            if (oppenentPiece != 6)
+            {
+                editPiece(_x - i, _y + i, 8);
+                i = 8;
+            }
+        }
+    }
+}
+void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
+{
+    if (_y < 6 && _x > 0)
+    {
+        if (_oppenentMap.returnPiece(_x - 1, _y + 2) != 6)
+            editPiece(_x - 1, _y + 2, 8);
+        else if (map[(_x - 1) + (_y + 2) * 8].x == 6)
+            editPiece(_x - 1, _y + 2, 7);
+    }
+    if (_y < 6 && _x < 7)
+    {
+        if (_oppenentMap.returnPiece(_x + 1, _y + 2) != 6)
+            editPiece(_x + 1, _y + 2, 8);
+        else if (map[(_x + 1) + (_y + 2) * 8].x == 6)
+            editPiece(_x + 1, _y + 2, 7);
+    }
+
+    if (_y > 1 && _x < 7)
+    {
+        if (_oppenentMap.returnPiece(_x + 1, _y - 2) != 6)
+            editPiece(_x + 1, _y - 2, 8);
+        else if (map[(_x + 1) + ((_y - 2) * 8)].x == 6)
+            editPiece(_x + 1, _y - 2, 7);
+    }
+
+    if (_y > 1 && _x > 0)
+    {
+        if (_oppenentMap.returnPiece(_x - 1, _y - 2) != 6)
+            editPiece(_x - 1, _y - 2, 8);
+        else if (map[(_x - 1) + (_y - 2) * 8].x == 6)
+            editPiece(_x - 1, _y - 2, 7);
+    }
+
+    if (_y > 0 && _x > 1)
+    {
+        if (_oppenentMap.returnPiece(_x - 2, _y - 1) != 6)
+            editPiece(_x - 2, _y - 1, 8);
+        else if (map[(_x - 2) + (_y - 1) * 8].x == 6)
+            editPiece(_x - 2, _y - 1, 7);
+    }
+
+    if (_y > 0 && _x < 6)
+    {
+        if (_oppenentMap.returnPiece(_x + 2, _y - 1) != 6)
+            editPiece(_x + 2, _y - 1, 8);
+        else if (map[(_x + 2) + (_y - 1) * 8].x == 6)
+            editPiece(_x + 2, _y - 1, 7);
+    }
+
+    if (_y < 7 && _x > 1)
+    {
+        if (_oppenentMap.returnPiece(_x - 2, _y + 1) != 6)
+            editPiece(_x - 2, _y + 1, 8);
+        else if (map[(_x - 2) + (_y + 1) * 8].x == 6)
+            editPiece(_x - 2, _y + 1, 7);
+    }
+
+    if (_y < 7 && _x < 6)
+    {
+        if (_oppenentMap.returnPiece(_x + 2, _y + 1) != 6)
+            editPiece(_x + 2, _y + 1, 8);
+        else if (map[(_x + 2) + (_y + 1) * 8].x == 6)
+            editPiece(_x + 2, _y + 1, 7);
+    }
+}
+void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _oppenentMap)
+{
+    if (_team == sf::Color::White)
+    {
+        if (_x < 7 && _y > 0)
+            if (_oppenentMap.returnPiece(_x + 1, _y - 1) != 6)
+                editPiece(_x + 1, _y - 1, 8);
+
+        if(_x > 0 && _y > 0)
+            if (_oppenentMap.returnPiece(_x - 1, _y - 1) != 6)
+                editPiece(_x - 1, _y - 1, 8);
+        
+        if(_y > 0)
+            if (_oppenentMap.returnPiece(_x, _y - 1) == 6 && map[_x + (_y - 1) * 8].x == 6)
+                editPiece(_x, _y - 1, 7);
+    
+        if(_y > 1)
+            if (_y == 6 && _oppenentMap.returnPiece(_x, _y - 2) == 6 && map[_x + (_y - 2) * 8].x == 6)
+                editPiece(_x, _y - 2, 7);
+    }
+
+    if (_team == sf::Color::Black)
+    {
+        if (_x > 0 && _y < 7)
+            if (_oppenentMap.returnPiece(_x - 1, _y + 1) != 6)
+                editPiece(_x - 1, _y + 1, 8);
+
+        if (_x < 7 && _y < 7)
+            if (_oppenentMap.returnPiece(_x + 1, _y + 1) != 6)
+                editPiece(_x + 1, _y + 1, 8);
+
+        if (_y < 7)
+            if (_oppenentMap.returnPiece(_x, _y + 1) == 6 && map[_x + (_y + 1) * 8].x == 6)
+                editPiece(_x, _y + 1, 7);
+
+        if (_y < 6)
+            if (_y == 1 && _oppenentMap.returnPiece(_x, _y + 2) == 6 && map[_x + (_y + 2) * 8].x == 6)
+                editPiece(_x, _y + 2, 7);
+    }
+
+}
+
+void Map::resetPossibleMoves()
+{
+    for (int y = 0; y < 8; y++)
+    {
+        for (int x = 0; x < 8; x++)
+        {
+            if (map[x + y * 8].x == 7 || map[x + y * 8].x == 8)
+            {
+                map[x + y * 8].x = 6;
+            }
+        }
+    }
+}
+
+void Map::editPiece(int _x, int _y, int _newPiece)
+{
+    map[_x + _y * 8].x = _newPiece;
+}
+
+void Map::editPiece(sf::Vector2i _pos, int _newPiece)
+{
+    map[_pos.x + _pos.y * 8].x = _newPiece;
+}
+
+
+int Map::returnPiece(int _x, int _y)
+{
+    return map[_x + _y * 8].x;
+}
+
+int Map::returnPiece(sf::Vector2i _pos)
+{
+    return map[_pos.x + _pos.y * 8].x;
+}
+
 Map::Map()
 {
 }
