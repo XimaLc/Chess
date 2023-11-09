@@ -93,6 +93,8 @@ Game::Game()
 {
 	window.create(sf::VideoMode(512, 512), "Chesstan");
 
+	p1.setPort(9666);
+	p1.send("Salut !");
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 

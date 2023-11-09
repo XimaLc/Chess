@@ -12,6 +12,10 @@ private:
 public:
 	Map getPieces();
 
+	void setPort(unsigned int _port);
+	void send(const char* _data);
+
+
 	void setColor(sf::Color _color);
 
 	void fillPieces();

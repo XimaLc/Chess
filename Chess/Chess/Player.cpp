@@ -5,6 +5,14 @@ Map Player::getPieces()
 	return pieces;
 }
 
+void Player::setPort(unsigned int _port)
+{
+}
+
+void Player::send(const char* _data)
+{
+}
+
 void Player::setColor(sf::Color _color)
 {
 	color = _color;
