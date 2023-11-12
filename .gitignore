@@ -10,3 +10,4 @@ Chess/x64
 *.exe
 *.recipe
 *.*.recipe
+Chess/ChessServer/data/LoginData.txt
