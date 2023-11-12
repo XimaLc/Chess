@@ -1,7 +1,11 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Network.hpp"
+#include "Client.h"
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <fstream>
 
 enum Pieces {king, queen, rook, bishop, knight, pawn, none, move, atk};
 
@@ -15,6 +19,8 @@ private:
 public:
 	void setTexture(std::string _file);
 	void setSprite();
+
+	void load();
 
 	void fill();
 	void white();
