@@ -5,9 +5,8 @@ std::string Client::receiveMessage()
 	char in[128];
 	std::size_t received;
 	sf::IpAddress sender;
-	unsigned short senderPort;
-
-	if (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Status::Done)
+	
+	if (socket.receive(in, sizeof(in), received, sender, port) != sf::Socket::Status::Done)
 		return "0";
 
 	return in;
@@ -35,6 +34,7 @@ std::string Client::waitForInfo()
 
 Client::Client()
 {
-	server = "127.0.0.1";
+	server = "192.168.10.106";
+	//server = "127.0.0.1";
 	port = 8888;
 }

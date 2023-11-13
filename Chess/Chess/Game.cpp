@@ -34,6 +34,11 @@ void Game::loop()
 
 	std::string res;
 
+	//client.waitForInfo();
+
+	//std::cout << "Mon adversaire est : " << client.oppenent << std::endl;
+
+
 	while (isRunning)
 	{
 		cd += GetDeltaTime();
@@ -67,8 +72,9 @@ void Game::loop()
 				p2played = false;
 			}
 
-			if (MOUSE(Left) && cd > 0.5f)
-				if (p1turn)
+			if (p1turn)
+			{
+				if (MOUSE(Left) && cd > 0.5f)
 				{
 					if (p1.getPieces().returnPiece(x, y) != 6 && p1.getPieces().returnPiece(x, y) != 7 && p1.getPieces().returnPiece(x, y) != 8)
 					{
@@ -87,44 +93,41 @@ void Game::loop()
 						client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
 					}
 				}
-			
-				else if (p2turn)
-				{
-					res.clear();
-					while (res.empty())
-					{
-						res = client.waitForInfo();
-					}
-					std::cout << res << std::endl;
-					oppenentX = stoi(res.substr(0, res.find(" ")));
-					res.erase(0, 2);
-					oppenentY = stoi(res.substr(0, res.find(" ")));
-					res.erase(0, 2);
-					prevOppenentX = stoi(res.substr(0, res.find(" ")));
-					res.erase(0, 2);
-					prevOppenentY = stoi(res.substr(0, res.find(" ")));
-
-					convert(oppenentX);
-					convert(oppenentY);
-					convert(prevOppenentX);
-					convert(prevOppenentY);
-
-					if (p1.getPieces().returnPiece(oppenentX, oppenentY) != 6)
-						p2played = p2.eat(oppenentX, oppenentY, prevOppenentX, prevOppenentY, p1);
-					else if (p1.getPieces().returnPiece(oppenentX, oppenentY) == 6)
-						p2played = p2.move(oppenentX, oppenentY, prevOppenentX, prevOppenentY);
-					
-				}
-				
 			}
-			
+			else if (p2turn)
+			{
+				res.clear();
+				while (res.empty())
+				{
+					res = client.waitForInfo();
+				}
+				std::cout << res << std::endl;
+				oppenentX = stoi(res.substr(0, res.find(" ")));
+				res.erase(0, 2);
+				oppenentY = stoi(res.substr(0, res.find(" ")));
+				res.erase(0, 2);
+				prevOppenentX = stoi(res.substr(0, res.find(" ")));
+				res.erase(0, 2);
+				prevOppenentY = stoi(res.substr(0, res.find(" ")));
+
+				convert(oppenentX);
+				convert(oppenentY);
+				convert(prevOppenentX);
+				convert(prevOppenentY);
+
+				if (p1.getPieces().returnPiece(oppenentX, oppenentY) != 6)
+					p2played = p2.eat(oppenentX, oppenentY, prevOppenentX, prevOppenentY, p1);
+				else if (p1.getPieces().returnPiece(oppenentX, oppenentY) == 6)
+					p2played = p2.move(oppenentX, oppenentY, prevOppenentX, prevOppenentY);
+			}
+
 			window.clear();
 			map.draw(window);
 			p1.drawPieces(window);
 			p2.drawPieces(window);
 			window.display();
 
-			
+		}
 	}
 }
 
