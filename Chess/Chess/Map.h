@@ -1,7 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
-#include "Client.h"
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -38,7 +37,6 @@ public:
 
 	void editPiece(int _x, int _y, int _newPiece);
 	void editPiece(sf::Vector2i _pos, int _newPiece);
-
 
 	Map();
 };
