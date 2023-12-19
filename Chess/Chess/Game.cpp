@@ -33,12 +33,7 @@ void Game::loop()
 	sf::Vector2i clickedPiece = { 0, 0 };
 
 	std::string res;
-
-	//client.waitForInfo();
-
-	//std::cout << "Mon adversaire est : " << client.oppenent << std::endl;
-
-
+	int resEat;
 	while (isRunning)
 	{
 		cd += GetDeltaTime();
@@ -87,41 +82,54 @@ void Game::loop()
 						else if (p1.getPieces().returnPiece(x, y) == 7)
 						{
 							p1played = p1.move(x, y, clickedPiece);
-							client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
 						}
 						else if (p1.getPieces().returnPiece(x, y) == 8)
 						{
 							p1played = p1.eat(x, y, clickedPiece, p2);
-							client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
+							//if (resEat == 3)
+							//{
+							//	p1played = false;
+							//	p2played = false;
+							//}
+							//else
+							//{
+							//	p1played = resEat;
+							//}
 						}
 					}
 				}
 			}
 			else if (p2turn)
 			{
-				res.clear();
-				while (res.empty())
+				if (MOUSE(Left) && cd > 0.5f)
 				{
-					res = client.waitForInfo();
+					if (pixelPos.x > 0 && pixelPos.x < window.getSize().x && pixelPos.y > 0 && pixelPos.y < window.getSize().y)
+					{
+						if (p2.getPieces().returnPiece(x, y) != 6 && p2.getPieces().returnPiece(x, y) != 7 && p2.getPieces().returnPiece(x, y) != 8)
+						{
+							clickedPiece = { x, y };
+							p2.resetPossibleMoves();
+							p2.getPossibleMoves(x, y, p1.getPieces());
+						}
+						else if (p2.getPieces().returnPiece(x, y) == 7)
+						{
+							p2played = p2.move(x, y, clickedPiece);
+						}
+						else if (p2.getPieces().returnPiece(x, y) == 8)
+						{
+							p2played = p2.eat(x, y, clickedPiece, p1);
+							//if (resEat == 2)
+							//{
+							//	p1played = false;
+							//	p2played = false;
+							//}
+							//else
+							//{
+							//	p2played = resEat;
+							//}
+						}
+					}
 				}
-				std::cout << res << std::endl;
-				oppenentX = stoi(res.substr(0, res.find(" ")));
-				res.erase(0, 2);
-				oppenentY = stoi(res.substr(0, res.find(" ")));
-				res.erase(0, 2);
-				prevOppenentX = stoi(res.substr(0, res.find(" ")));
-				res.erase(0, 2);
-				prevOppenentY = stoi(res.substr(0, res.find(" ")));
-
-				convert(oppenentX);
-				convert(oppenentY);
-				convert(prevOppenentX);
-				convert(prevOppenentY);
-
-				if (p1.getPieces().returnPiece(oppenentX, oppenentY) != 6)
-					p2played = p2.eat(oppenentX, oppenentY, prevOppenentX, prevOppenentY, p1);
-				else if (p1.getPieces().returnPiece(oppenentX, oppenentY) == 6)
-					p2played = p2.move(oppenentX, oppenentY, prevOppenentX, prevOppenentY);
 			}
 
 			window.clear();
@@ -151,8 +159,6 @@ Game::Game()
 	p2.fillPieces();
 
 	initTools();
-
-	client.sendMessage("Connecté");
 
 	loop();
 }

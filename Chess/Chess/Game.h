@@ -2,13 +2,11 @@
 #include "Map.h"
 #include "Player.h"
 #include "Tools.h"
-#include "Client.h"
 
 class Game
 {
 private:
 	Map map;
-	Client client;
 	Player p1;
 	Player p2;
 
