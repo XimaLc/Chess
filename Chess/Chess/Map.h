@@ -20,8 +20,6 @@ public:
 	void setTexture(std::string _file);
 	void setSprite();
 
-	//void load();
-
 	void fill();
 	void white();
 	void black();

