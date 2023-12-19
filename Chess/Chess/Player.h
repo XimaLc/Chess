@@ -8,10 +8,9 @@ class Player
 private:
 	sf::Color color;
 	Map pieces;
-
 public:
 	Map getPieces();
-
+	int getPiece(int _x, int _y);
 	void setPort(unsigned int _port);
 	void send(const char* _data);
 
@@ -29,7 +28,8 @@ public:
 
 	bool move(int _x, int _y, sf::Vector2i _piece);
 	bool move(int _x, int _y, int _prevX, int _prevY);
-	bool eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent);
-	bool eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent);
+
+	int eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent);
+	int eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent);
 };
 

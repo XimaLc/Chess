@@ -5,6 +5,11 @@ Map Player::getPieces()
 	return pieces;
 }
 
+int Player::getPiece(int _x, int _y)
+{
+	return pieces.returnPiece({_x, _y});
+}
+
 void Player::setPort(unsigned int _port)
 {
 }
@@ -46,34 +51,34 @@ void Player::resetPossibleMoves()
 	pieces.resetPossibleMoves();
 }
 
-void Player::getPossibleMoves(int _x, int _y, Map oppenentMap)
+void Player::getPossibleMoves(int _x, int _y, Map opponentMap)
 {
 	int p = pieces.returnPiece(_x, _y);
 	switch (p)
 	{
 	case 0:
-		pieces.showKingMoves(_x, _y, oppenentMap);
+		pieces.showKingMoves(_x, _y, opponentMap);
 		break;
 
 	case 1:
-		pieces.showBishopMoves(_x, _y, oppenentMap);
-		pieces.showRookMoves(_x, _y, oppenentMap);
+		pieces.showBishopMoves(_x, _y, opponentMap);
+		pieces.showRookMoves(_x, _y, opponentMap);
 		break;
 
 	case 2:
-		pieces.showRookMoves(_x, _y, oppenentMap);
+		pieces.showRookMoves(_x, _y, opponentMap);
 		break;
 
 	case 3:
-		pieces.showBishopMoves(_x, _y, oppenentMap);
+		pieces.showBishopMoves(_x, _y, opponentMap);
 		break;
 
 	case 4:
-		pieces.showKnightMoves(_x, _y, oppenentMap);
+		pieces.showKnightMoves(_x, _y, opponentMap);
 		break;
 		
 	case 5:
-		pieces.showPawnMoves(_x, _y, color,oppenentMap);
+		pieces.showPawnMoves(_x, _y, color,opponentMap);
 		break;
 	}
 }
@@ -101,22 +106,39 @@ bool Player::move(int _x, int _y, int _prevX, int _prevY)
 	return true;
 }
 
-bool Player::eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent)
+int Player::eat(int _x, int _y, sf::Vector2i _piece, Player& opponent)
 {
-	int piece = pieces.returnPiece(_piece);
-	pieces.editPiece(_piece, 6);
-	pieces.editPiece(_x, _y, piece);
-	oppenent.editPiece(_x, _y, 6);
-	pieces.resetPossibleMoves();
-	return true;
+	if (opponent.getPiece(_x, _y) != 0)
+	{
+		int piece = pieces.returnPiece(_piece);
+		pieces.editPiece(_piece, 6);
+		pieces.editPiece(_x, _y, piece);
+		opponent.editPiece(_x, _y, 6);
+		pieces.resetPossibleMoves();
+		return 1;
+	}
+	else
+	{
+		std::cout << "LOOOOOOOSER" << std::endl;
+		return 2;
+	}
 }
 
-bool Player::eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent)
+int Player::eat(int _x, int _y, int _prevX, int _prevY, Player& opponent)
 {
-	int piece = pieces.returnPiece(_prevX, _prevY);
-	pieces.editPiece(_prevX, _prevY, 6);
-	pieces.editPiece(_x, _y, piece);
-	oppenent.editPiece(_x, _y, 6);
-	pieces.resetPossibleMoves();
-	return true;
+	if (opponent.getPiece(_x, _y) != 0)
+	{
+		int piece = pieces.returnPiece(_prevX, _prevY);
+		pieces.editPiece(_prevX, _prevY, 6);
+		pieces.editPiece(_x, _y, piece);
+		opponent.editPiece(_x, _y, 6);
+		pieces.resetPossibleMoves();
+		return 1;
+	}
+	else
+	{
+		std::cout << "LOOOOOOOSER" << std::endl;
+		return 2;
+	}
+	
 }
