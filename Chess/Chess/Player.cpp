@@ -88,9 +88,11 @@ void Player::editPiece(int _x, int _y, int _piece)
 	pieces.editPiece(_x, _y, _piece);
 }
 
-bool Player::move(int _x, int _y, sf::Vector2i _piece)
+bool Player::move(int _x, int _y, sf::Vector2i _piece) 
 {
 	int piece = pieces.returnPiece(_piece);
+	if (piece == 5 && (_y == 0 || _y == 7))
+		piece = 1;
 	pieces.editPiece(_piece, 6);
 	pieces.editPiece(_x, _y, piece);
 	pieces.resetPossibleMoves();
@@ -100,6 +102,8 @@ bool Player::move(int _x, int _y, sf::Vector2i _piece)
 bool Player::move(int _x, int _y, int _prevX, int _prevY)
 {
 	int piece = pieces.returnPiece(_prevX, _prevY);
+	if (piece == 5 && (_y == 0 || _y == 7))
+		piece = 1;
 	pieces.editPiece(_prevX, _prevY, 6);
 	pieces.editPiece(_x, _y, piece);
 	pieces.resetPossibleMoves();
