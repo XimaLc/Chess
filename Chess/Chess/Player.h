@@ -11,9 +11,6 @@ private:
 public:
 	Map getPieces();
 	int getPiece(int _x, int _y);
-	void setPort(unsigned int _port);
-	void send(const char* _data);
-
 
 	void setColor(sf::Color _color);
 

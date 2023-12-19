@@ -10,14 +10,6 @@ int Player::getPiece(int _x, int _y)
 	return pieces.returnPiece({_x, _y});
 }
 
-void Player::setPort(unsigned int _port)
-{
-}
-
-void Player::send(const char* _data)
-{
-}
-
 void Player::setColor(sf::Color _color)
 {
 	color = _color;
