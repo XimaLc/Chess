@@ -19,7 +19,7 @@ int Client::sendMessage(std::string _message)
 	if (socket.send(_message.c_str(), sizeof(_message), server, port) != sf::Socket::Status::Done)
 		return 0;
 
-		std::cout << "Message envoyé au serveur" << std::endl;
+	std::cout << "Message envoye au serveur" << std::endl;
 }
 
 std::string Client::waitForInfo()
@@ -34,7 +34,7 @@ std::string Client::waitForInfo()
 
 Client::Client()
 {
-	server = "192.168.10.106";
+	server = "78.126.24.215";
+	port = 15842;
 	//server = "127.0.0.1";
-	port = 8888;
 }

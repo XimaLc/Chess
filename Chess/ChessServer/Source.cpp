@@ -9,13 +9,13 @@ int main()
 	//SERVER
 
 	sf::UdpSocket socket;
-	unsigned short port = 8888;
+	unsigned short port = 15842;
 	
 	sf::IpAddress ipP1;
 	sf::IpAddress ipP2;
 
-	sf::UdpSocket fileSocket;
-	unsigned short filePort = 8887;
+	/*sf::UdpSocket fileSocket;
+	unsigned short filePort = 8887;*/
 
 	char in[128];
 	std::size_t received;
@@ -91,21 +91,21 @@ int main()
 			return 0;*/
 	//}
 
+	std::cout << "Server listening on port " << port << std::endl;
 	while (true)
 	{
 
-		std::cout << "Server listening on port " << port << std::endl;
 		
-		if (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Status::Done)
+		if (socket.receive(in, sizeof(in), received, sender, port) != sf::Socket::Status::Done)
 			return 0;
 
 		std::cout << "Message reçu de " << sender << std::endl;
 
 		/*if (sender == ipP1)
-		{*/
+		{
 		if (socket.send(in, sizeof(in), sender, senderPort) != sf::Socket::Status::Done)
 			return 0;
-		/*}
+		}
 
 		if (sender == ipP2)
 		{
@@ -113,7 +113,7 @@ int main()
 				return 0;
 		}*/
 
-		std::cout << "Message envoye a " << sender << std::endl;
+		//std::cout << "Message envoye a " << sender << std::endl;
 	}
 
 	return 0;

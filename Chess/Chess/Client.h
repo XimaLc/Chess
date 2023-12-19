@@ -11,7 +11,7 @@ public:
 	std::string messageOut;
 	sf::IpAddress oppenent;
 
-	void getOppenent();
+	//void getOppenent();
 	int sendMessage(std::string _message);
 	std::string receiveMessage();
 	std::string waitForInfo();

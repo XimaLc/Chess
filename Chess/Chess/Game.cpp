@@ -76,21 +76,24 @@ void Game::loop()
 			{
 				if (MOUSE(Left) && cd > 0.5f)
 				{
-					if (p1.getPieces().returnPiece(x, y) != 6 && p1.getPieces().returnPiece(x, y) != 7 && p1.getPieces().returnPiece(x, y) != 8)
+					if (pixelPos.x > 0 && pixelPos.x < window.getSize().x && pixelPos.y > 0 && pixelPos.y < window.getSize().y)
 					{
-						clickedPiece = { x, y };
-						p1.resetPossibleMoves();
-						p1.getPossibleMoves(x, y, p2.getPieces());
-					}
-					else if (p1.getPieces().returnPiece(x, y) == 7)
-					{
-						p1played = p1.move(x, y, clickedPiece);
-						client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
-					}
-					else if (p1.getPieces().returnPiece(x, y) == 8)
-					{
-						p1played = p1.eat(x, y, clickedPiece, p2);
-						client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
+						if (p1.getPieces().returnPiece(x, y) != 6 && p1.getPieces().returnPiece(x, y) != 7 && p1.getPieces().returnPiece(x, y) != 8)
+						{
+							clickedPiece = { x, y };
+							p1.resetPossibleMoves();
+							p1.getPossibleMoves(x, y, p2.getPieces());
+						}
+						else if (p1.getPieces().returnPiece(x, y) == 7)
+						{
+							p1played = p1.move(x, y, clickedPiece);
+							client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
+						}
+						else if (p1.getPieces().returnPiece(x, y) == 8)
+						{
+							p1played = p1.eat(x, y, clickedPiece, p2);
+							client.sendMessage(std::string(std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(clickedPiece.x) + " " + std::to_string(clickedPiece.y)));
+						}
 					}
 				}
 			}
@@ -136,7 +139,6 @@ Game::Game()
 	window.create(sf::VideoMode(512, 512), "Chesstan");
 
 	p1.setPort(9666);
-	p1.send("Salut !");
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 
@@ -149,6 +151,8 @@ Game::Game()
 	p2.fillPieces();
 
 	initTools();
+
+	client.sendMessage("Connecté");
 
 	loop();
 }
