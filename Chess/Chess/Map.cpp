@@ -13,6 +13,7 @@ void Map::setSprite()
 
 void Map::fill()
 {
+    map.clear();
     int i = 0;
     for (int y = 0; y < 8; y++)
     {
@@ -28,11 +29,11 @@ void Map::fill()
                 i = 0;
         }
     }
-    //load();
 }
 
 void Map::white()
 {
+    map.clear();
     for (int i = 0; i < 48; i++)
     {
         map.push_back(sf::Vector2i{ none, 0 });
@@ -53,6 +54,7 @@ void Map::white()
 
 void Map::black()
 {
+    map.clear();
     map.push_back(sf::Vector2i{ rook, 0 });
     map.push_back(sf::Vector2i{ knight, 0 });
     map.push_back(sf::Vector2i{ bishop, 0 });
@@ -460,7 +462,6 @@ void Map::editPiece(sf::Vector2i _pos, int _newPiece)
 {
     map[_pos.x + _pos.y * 8].x = _newPiece;
 }
-
 
 int Map::returnPiece(int _x, int _y)
 {

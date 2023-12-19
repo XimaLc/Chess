@@ -14,6 +14,7 @@ private:
 public:
 	void convert(int &_pos);
 	void loop();
+	void reset();
 
 	Game();
 };

@@ -31,5 +31,8 @@ public:
 
 	int eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent);
 	int eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent);
+
+
+	bool checkIfEnd(int _x, int _y, Player& opponent);
 };
 

@@ -112,37 +112,28 @@ bool Player::move(int _x, int _y, int _prevX, int _prevY)
 
 int Player::eat(int _x, int _y, sf::Vector2i _piece, Player& opponent)
 {
-	if (opponent.getPiece(_x, _y) != 0)
-	{
-		int piece = pieces.returnPiece(_piece);
-		pieces.editPiece(_piece, 6);
-		pieces.editPiece(_x, _y, piece);
-		opponent.editPiece(_x, _y, 6);
-		pieces.resetPossibleMoves();
-		return 1;
-	}
-	else
-	{
-		std::cout << "LOOOOOOOSER" << std::endl;
-		return 2;
-	}
+	int piece = pieces.returnPiece(_piece);
+	pieces.editPiece(_piece, 6);
+	pieces.editPiece(_x, _y, piece);
+	opponent.editPiece(_x, _y, 6);
+	pieces.resetPossibleMoves();
+	return 1;
 }
 
 int Player::eat(int _x, int _y, int _prevX, int _prevY, Player& opponent)
 {
-	if (opponent.getPiece(_x, _y) != 0)
-	{
-		int piece = pieces.returnPiece(_prevX, _prevY);
-		pieces.editPiece(_prevX, _prevY, 6);
-		pieces.editPiece(_x, _y, piece);
-		opponent.editPiece(_x, _y, 6);
-		pieces.resetPossibleMoves();
-		return 1;
-	}
-	else
-	{
-		std::cout << "LOOOOOOOSER" << std::endl;
-		return 2;
-	}
-	
+	int piece = pieces.returnPiece(_prevX, _prevY);
+	pieces.editPiece(_prevX, _prevY, 6);
+	pieces.editPiece(_x, _y, piece);
+	opponent.editPiece(_x, _y, 6);
+	pieces.resetPossibleMoves(); 
+	return 1;
+}
+
+bool Player::checkIfEnd(int _x, int _y, Player& opponent)
+{
+	if (opponent.getPiece(_x, _y) == 0)
+		return true;
+
+	return false;
 }
