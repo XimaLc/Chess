@@ -90,6 +90,7 @@ float GetAngleBetween(sf::Vector2f a, sf::Vector2f b);
 bool collisionbutton(float px, float py, float rx, float ry, float rw, float rh);
 
 float GetDistance(sf::Vector2f a_, sf::Vector2f b_);
+float GetDistance(sf::Vector2i a_, sf::Vector2i b_);
 
 float GetPi();
 

@@ -216,6 +216,11 @@ float GetDistance(sf::Vector2f a_, sf::Vector2f b_)
 	return sqrt((b_.x - a_.x) * (b_.x - a_.x) + (b_.y - a_.y) * (b_.y - a_.y));
 }
 
+float GetDistance(sf::Vector2i a_, sf::Vector2i b_)
+{
+	return sqrt((b_.x - a_.x) * (b_.x - a_.x) + (b_.y - a_.y) * (b_.y - a_.y));
+}
+
 float GetSignedAngleBetween(sf::Vector2f a, sf::Vector2f b)
 {
 	return atan2f(a.x * b.y - a.y * b.x, a.x * b.x + a.y * b.y);
