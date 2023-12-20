@@ -157,7 +157,6 @@ void Map::showKingMoves(int _x, int _y, Map _opponentMap)
     }
 
 }
-
 void Map::showRookMoves(int _x, int _y, Map _opponentMap)
 {
     for (int i = 1; i < 8; i++)
@@ -459,6 +458,7 @@ void Map::editPiece(sf::Vector2i _pos, int _newPiece)
 {
     map[_pos.x + _pos.y * 8].x = _newPiece;
 }
+
 sf::Vector2i Map::find(int _pieceId)
 {
     for (int y = 0; y < 8; y++)
@@ -474,114 +474,62 @@ sf::Vector2i Map::find(int _pieceId)
 
 bool Map::isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 {
-    int opponentPiece;
-    if (_y > 0)
+    sf::Vector2i opponentNearest = getNearest(_x, _y, opponentMap, 0);
+    sf::Vector2i myNearest = getNearest(_x, _y, *this, 0);
+
+    if (opponentNearest != sf::Vector2i{ -1, -1 } && myNearest != sf::Vector2i{ -1, -1 })
+    {
+        if (opponentMap.returnPiece(opponentNearest) == 1 || opponentMap.returnPiece(opponentNearest) == 2)
+        {
+            if(GetDistance({ _x, _y }, opponentNearest) < GetDistance({ _x, _y }, myNearest))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap)
+{
+    return false;
+}
+
+bool Map::isCheckedByPawn(int _x, int _y, Map opponentMap)
+{
+    return false;
+}
+
+bool Map::isCheckedByKnight(int _x, int _y, Map opponentMap)
+{
+    return false;
+}
+
+bool Map::isCheckedByQueen(int _x, int _y, Map opponentMap)
+{
+    return false;
+}
+
+sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
+{
+    if (_type == 0) // Au dessus
     {
         for (int i = 1; i < 8; i++)
         {
             if (_y - i >= 0)
             {
-                opponentPiece = opponentMap.returnPiece(_x, _y - i);
-                if (returnPiece(_x, _y - i) != 6)
-                {
-                    i = 8;
-                }
-                else if (opponentPiece != 6)
-                {
-                    if (opponentPiece == 1 || opponentPiece == 2)
-                        return true;
-                    else
-                        i = 8;
-                }
+                if (map.returnPiece(_x, _y - i) != 6)
+                    return { _x, _y - i };
             }
         }
+        return { -1, -1 };
     }
-
-    if (_y < 8)
-    {
-        for (int i = 1; i < 8; i++)
-        {
-            if (_y + i < 7)
-            {
-                opponentPiece = opponentMap.returnPiece(_x, _y + i);
-                if (returnPiece(_x, _y + i) != 6)
-                {
-                    i = 8;
-                }
-                else if (opponentPiece != 6)
-                {
-                    if (opponentPiece == 1 || opponentPiece == 2)
-                        return true;
-                    else
-                        i = 8;
-                }
-            }
-        }   
-    }
-    if (_x > 0)
-    {
-        for (int i = 1; i < 8; i++)
-        {
-
-            if (_x - i >= 0)
-            {
-                opponentPiece = opponentMap.returnPiece(_x - i, _y);
-                if (returnPiece(_x - i, _y) != 6)
-                {
-                    i = 8;
-                }
-                else if (opponentPiece != 6)
-                {
-                    if (opponentPiece == 1 || opponentPiece == 2)
-                        return true;
-                    else
-                        i = 8;
-                }
-            }
-        }
-    }
-    if (_x < 8)
-    {
-        for (int i = 1; i < 8; i++)
-        {
-
-            if (_x + i < 7)
-            {
-                opponentPiece = opponentMap.returnPiece(_x + i, _y);
-                if (returnPiece(_x + i, _y) != 6)
-                {
-                    i = 8;
-                }
-                else if (opponentPiece != 6)
-                {
-                    if (opponentPiece == 1 || opponentPiece == 2)
-                        return true;
-                    else
-                        i = 8;
-                }
-            }
-        }
-    }
-}
-
-bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponent)
-{
-    return false;
-}
-
-bool Map::isCheckedByPawn(int _x, int _y, Map opponent)
-{
-    return false;
-}
-
-bool Map::isCheckedByKnight(int _x, int _y, Map opponent)
-{
-    return false;
-}
-
-bool Map::isCheckedByQueen(int _x, int _y, Map opponent)
-{
-    return false;
+    //if(_type == 1) // Au dessus / Droite
+    //if(_type == 2) // A droite
+    //if(_type == 3) // En bas / Droite
+    //if(_type == 4) // En bas
+    //if(_type == 5) // En bas / Gauche
+    //if(_type == 6) // A gauche
+    //if(_type == 7) // En haut / Gauche
 }
 
 int Map::returnPiece(int _x, int _y)
@@ -596,5 +544,5 @@ int Map::returnPiece(sf::Vector2i _pos)
 
 Map::Map()
 {
-    
+    initTools();
 }

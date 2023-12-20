@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
+#include "Tools.h"
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -40,11 +41,14 @@ public:
 
 	sf::Vector2i find(int _pieceId);
 
-	bool isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponent);
-	bool isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponent);
-	bool isCheckedByPawn(int _x, int _y, Map opponent);
-	bool isCheckedByKnight(int _x, int _y, Map opponent);
-	bool isCheckedByQueen(int _x, int _y, Map opponent);
+	bool isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap);
+	bool isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap);
+	bool isCheckedByPawn(int _x, int _y, Map opponentMap);
+	bool isCheckedByKnight(int _x, int _y, Map opponentMap);
+	bool isCheckedByQueen(int _x, int _y, Map opponentMap);
+
+	sf::Vector2i getNearest(int _x, int _y, Map opponentMap, int _type);
+
 
 	Map();
 };
