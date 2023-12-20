@@ -323,6 +323,7 @@ void Map::showBishopMoves(int _x, int _y, Map _opponentMap)
         }
     }
 }
+
 void Map::showKnightMoves(int _x, int _y, Map _opponentMap)
 {
     if (_y < 6 && _x > 0)
@@ -458,7 +459,6 @@ void Map::editPiece(sf::Vector2i _pos, int _newPiece)
 {
     map[_pos.x + _pos.y * 8].x = _newPiece;
 }
-
 sf::Vector2i Map::find(int _pieceId)
 {
     for (int y = 0; y < 8; y++)
@@ -476,21 +476,50 @@ bool Map::isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 {
     sf::Vector2i opponentNearest = getNearest(_x, _y, opponentMap, 0);
     sf::Vector2i myNearest = getNearest(_x, _y, *this, 0);
+    if(isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, {1, 2}))
+        return true;
 
-    if (opponentNearest != sf::Vector2i{ -1, -1 } && myNearest != sf::Vector2i{ -1, -1 })
-    {
-        if (opponentMap.returnPiece(opponentNearest) == 1 || opponentMap.returnPiece(opponentNearest) == 2)
-        {
-            if(GetDistance({ _x, _y }, opponentNearest) < GetDistance({ _x, _y }, myNearest))
-                return true;
-        }
-    }
+    opponentNearest = getNearest(_x, _y, opponentMap, 2);
+    myNearest = getNearest(_x, _y, *this, 2);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 2 }))
+        return true;
+        
+    opponentNearest = getNearest(_x, _y, opponentMap, 4);
+    myNearest = getNearest(_x, _y, *this, 4);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 2 }))
+        return true;
+        
+    opponentNearest = getNearest(_x, _y, opponentMap, 6);
+    myNearest = getNearest(_x, _y, *this, 6);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 2 }))
+        return true;
+
 
     return false;
 }
 
 bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 {
+    sf::Vector2i opponentNearest = getNearest(_x, _y, opponentMap, 1);
+    sf::Vector2i myNearest = getNearest(_x, _y, *this, 1);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 3 }))
+        return true;
+
+    opponentNearest = getNearest(_x, _y, opponentMap, 3);
+    myNearest = getNearest(_x, _y, *this, 3);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 3 }))
+        return true;
+
+    opponentNearest = getNearest(_x, _y, opponentMap, 5);
+    myNearest = getNearest(_x, _y, *this, 5);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 3 }))
+        return true;
+
+    opponentNearest = getNearest(_x, _y, opponentMap, 7);
+    myNearest = getNearest(_x, _y, *this, 7);
+    if (isCheckOrProtected(_x, _y, myNearest, opponentNearest, opponentMap, { 1, 3 }))
+        return true;
+
     return false;
 }
 
@@ -520,16 +549,127 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
                 if (map.returnPiece(_x, _y - i) != 6)
                     return { _x, _y - i };
             }
+            else
+                return { -1, -1 };
         }
         return { -1, -1 };
     }
-    //if(_type == 1) // Au dessus / Droite
-    //if(_type == 2) // A droite
-    //if(_type == 3) // En bas / Droite
-    //if(_type == 4) // En bas
-    //if(_type == 5) // En bas / Gauche
-    //if(_type == 6) // A gauche
-    //if(_type == 7) // En haut / Gauche
+    if (_type == 1) // Au dessus / Droite
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y - i >= 0 && _x + i <= 7)
+            {
+                if (map.returnPiece(_x + i, _y - i) != 6)
+                    return { _x + i, _y - i };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+    if (_type == 2) // A droite
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_x + i <= 7)
+            {
+                if (map.returnPiece(_x + i, _y) != 6)
+                    return { _x + i, _y };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+    if (_type == 3) // En bas / Droite
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y + i <= 7 && _x + i <= 7)
+            {
+                if (map.returnPiece(_x + i, _y + i) != 6)
+                    return { _x + i, _y + i };
+            }
+            else
+                return { -1, -1 };
+        }
+    }
+    return { -1, -1 };
+    if (_type == 4) // En bas
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y + i <= 7)
+            {
+                if (map.returnPiece(_x, _y + i) != 6)
+                    return { _x, _y + i };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+    if (_type == 5) // En bas / Gauche
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y + i <= 7 && _x - i >= 0)
+            {
+                if (map.returnPiece(_x - i, _y + i) != 6)
+                    return { _x - i, _y + i };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+    if(_type == 6) // A gauche
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_x - i >= 0)
+            {
+                if (map.returnPiece(_x - i, _y) != 6)
+                    return { _x - i, _y };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+    if (_type == 7) // En haut / Gauche
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y - i >= 0 && _x - i >= 0)
+            {
+                if (map.returnPiece(_x - i, _y - i) != 6)
+                    return { _x - i, _y - i };
+            }
+            else
+                return { -1, -1 };
+        }
+        return { -1, -1 };
+    }
+}
+
+bool Map::isCheckOrProtected(int _x, int _y, sf::Vector2i _player, sf::Vector2i _opponent, Map _opponentMap, sf::Vector2i _checkers)
+{
+    if (_opponent != sf::Vector2i{ -1, -1 })
+    {
+        if (_opponentMap.returnPiece(_opponent) == _checkers.x || _opponentMap.returnPiece(_opponent) == _checkers.y)
+        {
+            if (_player != sf::Vector2i{ -1, -1 })
+            {
+                    if (GetDistance({ _x, _y }, _opponent) < GetDistance({ _x, _y }, _player))
+                        return true;
+                return false;
+            }
+            return true;
+        }
+    }
+    return false;
 }
 
 int Map::returnPiece(int _x, int _y)

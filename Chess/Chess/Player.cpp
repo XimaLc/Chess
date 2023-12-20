@@ -128,13 +128,18 @@ bool Player::checkIfChecked(Player opponent)
 {
 	bool checked = false;
 	sf::Vector2i roi = pieces.find(0);
+
 	if (roi != sf::Vector2i{ -1, -1 })
 	{
 		checked = pieces.isCheckedByRookAndMoitieDeQueen(roi.x, roi.y, opponent.getPieces());
-		//checked = isCheckedByBishop(roi.x, roi.y, oppopent);
-		//checked = isCheckedByPawn(roi.x, roi.y, oppopent);
-		//checked = isCheckedByKnight(roi.x, roi.y, oppopent);
-		//checked = isCheckedByQueen(roi.x, roi.y, oppopent);
+		if (!checked)
+			checked = pieces.isCheckedByBishopAndMoitieDeQueen(roi.x, roi.y, opponent.getPieces());
+		//if (!checked)
+		//checked = isCheckedByPawn(roi.x, roi.y, opponent);
+		//if (!checked)
+		//checked = isCheckedByKnight(roi.x, roi.y, opponent);
+		//if (!checked)
+		//checked = isCheckedByQueen(roi.x, roi.y, opponent);
 
 	}
 	if (checked)

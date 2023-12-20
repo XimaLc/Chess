@@ -76,15 +76,12 @@ void Game::loop()
 
 			if(!end)
 			{
-				isP1Checked = p1.checkIfChecked(p2);
+				/*isP1Checked = p1.checkIfChecked(p2);
 				if (isP1Checked)
-					std::cout << "P1 Checked" << std::endl;
+					std::cout << "P1 Checked" << std::endl;*/
 
  				isP2Checked = p2.checkIfChecked(p1);
-				if (isP2Checked)
-					std::cout << "P2 Checked" << std::endl;
-				else
-					std::cout << "P2 pas checked" << std::endl;
+				std::cout << isP2Checked << std::endl;
 
 				if (p1played) 
 				{

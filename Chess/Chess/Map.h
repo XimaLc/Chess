@@ -48,7 +48,7 @@ public:
 	bool isCheckedByQueen(int _x, int _y, Map opponentMap);
 
 	sf::Vector2i getNearest(int _x, int _y, Map opponentMap, int _type);
-
+	bool isCheckOrProtected(int _x, int _y, sf::Vector2i _player, sf::Vector2i _opponent, Map _opponentMap, sf::Vector2i _checkers);
 
 	Map();
 };
