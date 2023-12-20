@@ -136,9 +136,11 @@ bool Player::checkIfChecked(Player opponent)
 		//checked = isCheckedByKnight(roi.x, roi.y, oppopent);
 		//checked = isCheckedByQueen(roi.x, roi.y, oppopent);
 
-		if (checked)
-			return true;
 	}
+	if (checked)
+		return true;
+	
+	
 	return false;
 }
 
