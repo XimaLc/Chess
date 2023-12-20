@@ -76,7 +76,17 @@ void Game::loop()
 
 			if(!end)
 			{
-				if (p1played)
+				isP1Checked = p1.checkIfChecked(p2);
+				if (isP1Checked)
+					std::cout << "P1 Checked" << std::endl;
+
+ 				isP2Checked = p2.checkIfChecked(p1);
+				if (isP2Checked)
+					std::cout << "P2 Checked" << std::endl;
+				else
+					std::cout << "P2 pas checked" << std::endl;
+
+				if (p1played) 
 				{
 					
 					p1turn = false;
@@ -115,9 +125,6 @@ void Game::loop()
 								if (end)
 									winner = "WHITE";
 								p1played = p1.eat(x, y, clickedPiece, p2);
-								isP2Checked = p2.checkIfChecked(p1);
-								if (isP2Checked)
-									std::cout << "P2 Checked" << std::endl;
 							}
 						}
 					}
@@ -145,9 +152,7 @@ void Game::loop()
 								if (end)
 									winner = "BLACK";
 								p2played = p2.eat(x, y, clickedPiece, p1);
-								isP1Checked = p1.checkIfChecked(p2);
-								if(isP1Checked)
-									std::cout << "P1 Checked" << std::endl;
+								
 							}
 						}
 					}
