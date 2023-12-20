@@ -28,15 +28,23 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void showKingMoves(int _x, int _y, Map _oppenent);
-	void showRookMoves(int _x, int _y, Map _oppenent);
-	void showBishopMoves(int _x, int _y, Map _oppenent);
-	void showKnightMoves(int _x, int _y, Map _oppenent);
-	void showPawnMoves(int _x, int _y, sf::Color _team, Map _oppenent);
+	void showKingMoves(int _x, int _y, Map _opponent);
+	void showRookMoves(int _x, int _y, Map _opponent);
+	void showBishopMoves(int _x, int _y, Map _opponent);
+	void showKnightMoves(int _x, int _y, Map _opponent);
+	void showPawnMoves(int _x, int _y, sf::Color _team, Map _opponent);
 	void resetPossibleMoves();
 
 	void editPiece(int _x, int _y, int _newPiece);
 	void editPiece(sf::Vector2i _pos, int _newPiece);
+
+	sf::Vector2i find(int _pieceId);
+
+	bool isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponent);
+	bool isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponent);
+	bool isCheckedByPawn(int _x, int _y, Map opponent);
+	bool isCheckedByKnight(int _x, int _y, Map opponent);
+	bool isCheckedByQueen(int _x, int _y, Map opponent);
 
 	Map();
 };

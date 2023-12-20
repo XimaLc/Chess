@@ -19,16 +19,19 @@ public:
 	void setMapTexture(std::string _file);
 
 	void resetPossibleMoves();
-	void getPossibleMoves(int _x, int _y, Map oppenentMap);
+	void getPossibleMoves(int _x, int _y, Map opponentMap);
 
 	void editPiece(int _x, int _y, int _piece);
 
 	bool move(int _x, int _y, sf::Vector2i _piece);
 	bool move(int _x, int _y, int _prevX, int _prevY);
 
-	int eat(int _x, int _y, sf::Vector2i _piece, Player& oppenent);
-	int eat(int _x, int _y, int _prevX, int _prevY, Player& oppenent);
+	int eat(int _x, int _y, sf::Vector2i _piece, Player& opponent);
+	int eat(int _x, int _y, int _prevX, int _prevY, Player& opponent);
 
+
+	bool checkIfChecked(Player oppopent);
+	//bool checkIfChecked(int _x, int _y, Player oppopent);
 
 	bool checkIfEnd(int _x, int _y, Player& opponent);
 };

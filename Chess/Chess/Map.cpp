@@ -438,7 +438,6 @@ void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _opponentMap)
     }
 
 }
-
 void Map::resetPossibleMoves()
 {
     for (int y = 0; y < 8; y++)
@@ -452,15 +451,137 @@ void Map::resetPossibleMoves()
         }
     }
 }
-
 void Map::editPiece(int _x, int _y, int _newPiece)
 {
     map[_x + _y * 8].x = _newPiece;
 }
-
 void Map::editPiece(sf::Vector2i _pos, int _newPiece)
 {
     map[_pos.x + _pos.y * 8].x = _newPiece;
+}
+sf::Vector2i Map::find(int _pieceId)
+{
+    for (int y = 0; y < 8; y++)
+    {
+        for (int x = 0; x < 8; x++)
+        {
+            if (returnPiece(x, y) == _pieceId)
+                return { x, y };
+        }
+    }
+    return { -1, -1 };
+}
+
+bool Map::isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap)
+{
+    int opponentPiece;
+    if (_y > 0)
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y - i >= 0)
+            {
+                opponentPiece = opponentMap.returnPiece(_x, _y - i);
+                if (returnPiece(_x, _y - i) != 6)
+                {
+                    i = 8;
+                }
+                else if (opponentPiece != 6)
+                {
+                    if (opponentPiece == 1 || opponentPiece == 2)
+                        return true;
+                    else
+                        i = 8;
+                }
+            }
+        }
+    }
+
+    if (_y < 8)
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            if (_y + i < 7)
+            {
+                opponentPiece = opponentMap.returnPiece(_x, _y + i);
+                if (returnPiece(_x, _y + i) != 6)
+                {
+                    i = 8;
+                }
+                else if (opponentPiece != 6)
+                {
+                    if (opponentPiece == 1 || opponentPiece == 2)
+                        return true;
+                    else
+                        i = 8;
+                }
+            }
+        }   
+    }
+    if (_x > 0)
+    {
+        for (int i = 1; i < 8; i++)
+        {
+
+            if (_x - i >= 0)
+            {
+                opponentPiece = opponentMap.returnPiece(_x - i, _y);
+                if (returnPiece(_x - i, _y) != 6)
+                {
+                    i = 8;
+                }
+                else if (opponentPiece != 6)
+                {
+                    if (opponentPiece == 1 || opponentPiece == 2)
+                        return true;
+                    else
+                        i = 8;
+                }
+            }
+        }
+    }
+    if (_x < 8)
+    {
+        for (int i = 1; i < 8; i++)
+        {
+
+            if (_x + i < 7)
+            {
+                opponentPiece = opponentMap.returnPiece(_x + i, _y);
+                if (returnPiece(_x + i, _y) != 6)
+                {
+                    i = 8;
+                }
+                else if (opponentPiece != 6)
+                {
+                    if (opponentPiece == 1 || opponentPiece == 2)
+                        return true;
+                    else
+                        i = 8;
+                }
+            }
+        }
+    }
+}
+
+bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponent)
+{
+    return false;
+}
+
+bool Map::isCheckedByPawn(int _x, int _y, Map opponent)
+{
+    return false;
+}
+
+bool Map::isCheckedByKnight(int _x, int _y, Map opponent)
+{
+    return false;
+}
+
+bool Map::isCheckedByQueen(int _x, int _y, Map opponent)
+{
+    return false;
 }
 
 int Map::returnPiece(int _x, int _y)

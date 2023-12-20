@@ -105,6 +105,8 @@ bool Player::move(int _x, int _y, int _prevX, int _prevY)
 int Player::eat(int _x, int _y, sf::Vector2i _piece, Player& opponent)
 {
 	int piece = pieces.returnPiece(_piece);
+	if(piece == 5 && (_y == 0 || _y ==7))
+		piece = 1;
 	pieces.editPiece(_piece, 6);
 	pieces.editPiece(_x, _y, piece);
 	opponent.editPiece(_x, _y, 6);
@@ -120,6 +122,24 @@ int Player::eat(int _x, int _y, int _prevX, int _prevY, Player& opponent)
 	opponent.editPiece(_x, _y, 6);
 	pieces.resetPossibleMoves(); 
 	return 1;
+}
+
+bool Player::checkIfChecked(Player opponent)
+{
+	bool checked = false;
+	sf::Vector2i roi = pieces.find(0);
+	if (roi != sf::Vector2i{ -1, -1 })
+	{
+		checked = pieces.isCheckedByRookAndMoitieDeQueen(roi.x, roi.y, opponent.getPieces());
+		//checked = isCheckedByBishop(roi.x, roi.y, oppopent);
+		//checked = isCheckedByPawn(roi.x, roi.y, oppopent);
+		//checked = isCheckedByKnight(roi.x, roi.y, oppopent);
+		//checked = isCheckedByQueen(roi.x, roi.y, oppopent);
+
+		if (checked)
+			return true;
+	}
+	return false;
 }
 
 bool Player::checkIfEnd(int _x, int _y, Player& opponent)

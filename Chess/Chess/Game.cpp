@@ -24,10 +24,10 @@ void Game::loop()
 
 	bool isRunning = true;
 
-	int oppenentX;
-	int oppenentY;
-	int prevOppenentX;
-	int prevOppenentY;
+	int opponentX;
+	int opponentY;
+	int prevopponentX;
+	int prevopponentY;
 
 	std::string winner = "";
 	bool end = false;
@@ -50,6 +50,9 @@ void Game::loop()
 	buttonText.setFont(font);
 	buttonText.setString("Rejouer");
 	buttonText.setPosition(button.getPosition().x + 10, button.getPosition().y + 7);
+
+	bool isP1Checked = false;
+	bool isP2Checked = false;
 
 	std::string res;
 	while (isRunning)
@@ -75,6 +78,7 @@ void Game::loop()
 			{
 				if (p1played)
 				{
+					
 					p1turn = false;
 					p2turn = true;
 					p1played = false;
@@ -82,6 +86,7 @@ void Game::loop()
 
 				if (p2played)
 				{
+					
 					p2turn = false;
 					p1turn = true;
 					p2played = false;
@@ -102,6 +107,7 @@ void Game::loop()
 							else if (p1.getPieces().returnPiece(x, y) == 7)
 							{
 								p1played = p1.move(x, y, clickedPiece);
+								p2.checkIfChecked(p1);
 							}
 							else if (p1.getPieces().returnPiece(x, y) == 8)
 							{
@@ -109,6 +115,9 @@ void Game::loop()
 								if (end)
 									winner = "WHITE";
 								p1played = p1.eat(x, y, clickedPiece, p2);
+								isP2Checked = p2.checkIfChecked(p1);
+								if (isP2Checked)
+									std::cout << "P2 Checked" << std::endl;
 							}
 						}
 					}
@@ -128,6 +137,7 @@ void Game::loop()
 							else if (p2.getPieces().returnPiece(x, y) == 7)
 							{
 								p2played = p2.move(x, y, clickedPiece);
+								p1.checkIfChecked(p2);
 							}
 							else if (p2.getPieces().returnPiece(x, y) == 8)
 							{
@@ -135,9 +145,13 @@ void Game::loop()
 								if (end)
 									winner = "BLACK";
 								p2played = p2.eat(x, y, clickedPiece, p1);
+								isP1Checked = p1.checkIfChecked(p2);
+								if(isP1Checked)
+									std::cout << "P1 Checked" << std::endl;
 							}
 						}
 					}
+
 				}
 			}
 			else
@@ -182,7 +196,6 @@ Game::Game()
 {
 	window.create(sf::VideoMode(512, 512), "Chessthan");
 
-	p1.setPort(9666);
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 
