@@ -43,34 +43,43 @@ void Player::resetPossibleMoves()
 	pieces.resetPossibleMoves();
 }
 
-void Player::getPossibleMoves(int _x, int _y, Map opponentMap)
+bool Player::getPossibleMoves(int _x, int _y, Map opponentMap, bool isChecked)
 {
 	int p = pieces.returnPiece(_x, _y);
+
 	switch (p)
 	{
 	case 0:
-		pieces.showKingMoves(_x, _y, opponentMap);
+		if (!pieces.showKingMoves(_x, _y, opponentMap, color))
+			return true;
+		else
+			return false;
 		break;
 
 	case 1:
-		pieces.showBishopMoves(_x, _y, opponentMap);
-		pieces.showRookMoves(_x, _y, opponentMap);
+		pieces.showBishopMoves(_x, _y, opponentMap, isChecked);
+		pieces.showRookMoves(_x, _y, opponentMap, isChecked);
+		return false;
 		break;
 
 	case 2:
-		pieces.showRookMoves(_x, _y, opponentMap);
+		pieces.showRookMoves(_x, _y, opponentMap, isChecked);
+		return false;
 		break;
 
 	case 3:
-		pieces.showBishopMoves(_x, _y, opponentMap);
+		pieces.showBishopMoves(_x, _y, opponentMap, isChecked);
+		return false;
 		break;
 
 	case 4:
-		pieces.showKnightMoves(_x, _y, opponentMap);
+		pieces.showKnightMoves(_x, _y, opponentMap, isChecked);
+		return false;
 		break;
-		
+
 	case 5:
-		pieces.showPawnMoves(_x, _y, color,opponentMap);
+		pieces.showPawnMoves(_x, _y, color, opponentMap, isChecked);
+		return false;
 		break;
 	}
 }
@@ -134,13 +143,10 @@ bool Player::checkIfChecked(Player opponent)
 		checked = pieces.isCheckedByRookAndMoitieDeQueen(roi.x, roi.y, opponent.getPieces());
 		if (!checked)
 			checked = pieces.isCheckedByBishopAndMoitieDeQueen(roi.x, roi.y, opponent.getPieces());
-		//if (!checked)
-		//checked = isCheckedByPawn(roi.x, roi.y, opponent);
-		//if (!checked)
-		//checked = isCheckedByKnight(roi.x, roi.y, opponent);
-		//if (!checked)
-		//checked = isCheckedByQueen(roi.x, roi.y, opponent);
-
+		if (!checked)
+			checked = pieces.isCheckedByPawn(roi.x, roi.y, opponent.getPieces(), color);
+		if (!checked)
+			checked = pieces.isCheckedByKnight(roi.x, roi.y, opponent.getPieces());
 	}
 	if (checked)
 		return true;

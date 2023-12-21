@@ -29,11 +29,12 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void showKingMoves(int _x, int _y, Map _opponent);
-	void showRookMoves(int _x, int _y, Map _opponent);
-	void showBishopMoves(int _x, int _y, Map _opponent);
-	void showKnightMoves(int _x, int _y, Map _opponent);
-	void showPawnMoves(int _x, int _y, sf::Color _team, Map _opponent);
+	bool showKingMoves(int _x, int _y, Map _opponent, sf::Color team);
+	void showRookMoves(int _x, int _y, Map _opponent, bool isChecked);
+	void showBishopMoves(int _x, int _y, Map _opponent, bool isChecked);
+	void showKnightMoves(int _x, int _y, Map _opponent, bool isChecked);
+	void showPawnMoves(int _x, int _y, sf::Color _team, Map _opponent, bool isChecked);
+	
 	void resetPossibleMoves();
 
 	void editPiece(int _x, int _y, int _newPiece);
@@ -43,12 +44,14 @@ public:
 
 	bool isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap);
 	bool isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap);
-	bool isCheckedByPawn(int _x, int _y, Map opponentMap);
+	bool isCheckedByPawn(int _x, int _y, Map opponentMap, sf::Color team);
 	bool isCheckedByKnight(int _x, int _y, Map opponentMap);
-	bool isCheckedByQueen(int _x, int _y, Map opponentMap);
+	bool isCheckedByKing(int _x, int _y, Map opponentMap);
 
 	sf::Vector2i getNearest(int _x, int _y, Map opponentMap, int _type);
 	bool isCheckOrProtected(int _x, int _y, sf::Vector2i _player, sf::Vector2i _opponent, Map _opponentMap, sf::Vector2i _checkers);
+
+	bool isNextCellCheckable(int _x, int _y, Map opponentMap, sf::Color team);
 
 	Map();
 };

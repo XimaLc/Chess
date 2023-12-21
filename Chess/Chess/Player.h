@@ -19,7 +19,7 @@ public:
 	void setMapTexture(std::string _file);
 
 	void resetPossibleMoves();
-	void getPossibleMoves(int _x, int _y, Map opponentMap);
+	bool getPossibleMoves(int _x, int _y, Map opponentMap, bool isChecked);
 
 	void editPiece(int _x, int _y, int _piece);
 

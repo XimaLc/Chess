@@ -76,16 +76,8 @@ void Game::loop()
 
 			if(!end)
 			{
-				/*isP1Checked = p1.checkIfChecked(p2);
-				if (isP1Checked)
-					std::cout << "P1 Checked" << std::endl;*/
-
- 				isP2Checked = p2.checkIfChecked(p1);
-				std::cout << isP2Checked << std::endl;
-
 				if (p1played) 
 				{
-					
 					p1turn = false;
 					p2turn = true;
 					p1played = false;
@@ -93,7 +85,6 @@ void Game::loop()
 
 				if (p2played)
 				{
-					
 					p2turn = false;
 					p1turn = true;
 					p2played = false;
@@ -109,12 +100,19 @@ void Game::loop()
 							{
 								clickedPiece = { x, y };
 								p1.resetPossibleMoves();
-								p1.getPossibleMoves(x, y, p2.getPieces());
+								end = p1.getPossibleMoves(x, y, p2.getPieces(), isP2Checked);
+								if (end)
+									winner = "BLACK";
 							}
 							else if (p1.getPieces().returnPiece(x, y) == 7)
 							{
 								p1played = p1.move(x, y, clickedPiece);
-								p2.checkIfChecked(p1);
+
+								isP2Checked = p2.checkIfChecked(p1);
+								std::cout << isP2Checked << " / P2 - 1" << std::endl;
+
+								isP1Checked = p1.checkIfChecked(p2);
+								std::cout << isP1Checked << " / P1 - 3" << std::endl;
 							}
 							else if (p1.getPieces().returnPiece(x, y) == 8)
 							{
@@ -122,6 +120,12 @@ void Game::loop()
 								if (end)
 									winner = "WHITE";
 								p1played = p1.eat(x, y, clickedPiece, p2);
+
+								isP2Checked = p2.checkIfChecked(p1);
+								std::cout << isP2Checked << " / P2 - 2" << std::endl;
+
+								isP1Checked = p1.checkIfChecked(p2);
+								std::cout << isP1Checked << " / P1 - 4" << std::endl;
 							}
 						}
 					}
@@ -136,12 +140,19 @@ void Game::loop()
 							{
 								clickedPiece = { x, y };
 								p2.resetPossibleMoves();
-								p2.getPossibleMoves(x, y, p1.getPieces());
+								end = p2.getPossibleMoves(x, y, p1.getPieces(), isP2Checked);
+								if (end)
+									winner = "WHITE";
 							}
 							else if (p2.getPieces().returnPiece(x, y) == 7)
 							{
 								p2played = p2.move(x, y, clickedPiece);
-								p1.checkIfChecked(p2);
+
+								isP1Checked = p1.checkIfChecked(p2);
+								std::cout << isP1Checked << " / P1 - 1" << std::endl;
+
+								isP2Checked = p2.checkIfChecked(p1);
+								std::cout << isP2Checked << " / P2 - 3" << std::endl;
 							}
 							else if (p2.getPieces().returnPiece(x, y) == 8)
 							{
@@ -149,7 +160,12 @@ void Game::loop()
 								if (end)
 									winner = "BLACK";
 								p2played = p2.eat(x, y, clickedPiece, p1);
-								
+
+								isP1Checked = p1.checkIfChecked(p2);
+								std::cout << isP1Checked << " / P1 - 2" << std::endl;
+
+								isP2Checked = p2.checkIfChecked(p1);
+								std::cout << isP2Checked << " / P2 - 4" << std::endl;
 							}
 						}
 					}

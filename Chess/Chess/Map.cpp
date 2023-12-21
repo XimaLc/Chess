@@ -38,36 +38,48 @@ void Map::white()
     {
         map.push_back(sf::Vector2i{ none, 0 });
     }
-    for (int i = 48; i < 56; i++)
+    /*for (int i = 48; i < 63; i++)
     {
-        map.push_back(sf::Vector2i{ pawn, 0 });
+        map.push_back(sf::Vector2i{ none, 0 });
+    }*/
+    for (int i = 48; i < 64; i++)
+    {
+        map.push_back(sf::Vector2i{ knight, 0 });
     }
-    map.push_back(sf::Vector2i{ rook, 0 });
-    map.push_back(sf::Vector2i{knight, 0});
-    map.push_back(sf::Vector2i{bishop, 0});
-    map.push_back(sf::Vector2i{ queen, 0 });
-    map.push_back(sf::Vector2i{ king, 0 });
-    map.push_back(sf::Vector2i{ bishop, 0 });
-    map.push_back(sf::Vector2i{ knight, 0 });
-    map.push_back(sf::Vector2i{ rook, 0 });
+    //map.push_back(sf::Vector2i{ rook, 0 });
+    //map.push_back(sf::Vector2i{knight, 0});
+    //map.push_back(sf::Vector2i{bishop, 0});
+    //map.push_back(sf::Vector2i{ queen, 0 });
+    //map.push_back(sf::Vector2i{ king, 0 });
+    //map.push_back(sf::Vector2i{ bishop, 0 });
+    //map.push_back(sf::Vector2i{ knight, 0 });
+    //map.push_back(sf::Vector2i{ rook, 0 });
 }
 
 void Map::black()
 {
     map.clear();
-    map.push_back(sf::Vector2i{ rook, 0 });
-    map.push_back(sf::Vector2i{ knight, 0 });
-    map.push_back(sf::Vector2i{ bishop, 0 });
-    map.push_back(sf::Vector2i{ king, 0 });
-    map.push_back(sf::Vector2i{ queen, 0 });
-    map.push_back(sf::Vector2i{ bishop, 0 });
-    map.push_back(sf::Vector2i{ knight, 0 });
-    map.push_back(sf::Vector2i{ rook, 0 });
-    for (int i = 8; i < 16; i++)
+    for (int i = 0; i < 27; i++)
     {
-        map.push_back(sf::Vector2i{ pawn, 0 });
+        map.push_back(sf::Vector2i{ none, 0 });
     }
-    for (int i = 16; i < 64; i++)
+    //map.push_back(sf::Vector2i{ rook, 0 });
+    //map.push_back(sf::Vector2i{ knight, 0 });
+    //map.push_back(sf::Vector2i{ bishop, 0 });
+    map.push_back(sf::Vector2i{ king, 0 });
+    //map.push_back(sf::Vector2i{ queen, 0 });
+    //map.push_back(sf::Vector2i{ bishop, 0 });
+    //map.push_back(sf::Vector2i{ knight, 0 });
+    //map.push_back(sf::Vector2i{ rook, 0 });
+    //for (int i = 8; i < 16; i++)
+    //{
+    //    map.push_back(sf::Vector2i{ pawn, 0 });
+    //}
+    //for (int i = 16; i < 64; i++)
+    //{
+    //    map.push_back(sf::Vector2i{ none, 0 });
+    //}
+    for (int i = 28; i < 64; i++)
     {
         map.push_back(sf::Vector2i{ none, 0 });
     }
@@ -97,67 +109,82 @@ void Map::draw(sf::RenderWindow& _window)
     }
 }
 
-void Map::showKingMoves(int _x, int _y, Map _opponentMap)
+bool Map::showKingMoves(int _x, int _y, Map _opponentMap, sf::Color team)
 {
     if (_y < 7)
     {
-        if (_opponentMap.returnPiece(_x, _y+1) != 6)
-            editPiece(_x, _y + 1, 8);
-        else if (map[(_x) + (_y + 1) * 8].x == 6)
-            editPiece(_x, _y + 1, 7);
+        if(!isNextCellCheckable(_x, _y + 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x, _y+1) != 6)
+                editPiece(_x, _y + 1, 8);
+            else if (map[(_x) + (_y + 1) * 8].x == 6)
+                editPiece(_x, _y + 1, 7);
     }
     if (_y > 0)
     {
-        if (_opponentMap.returnPiece(_x, _y - 1) != 6)
-            editPiece(_x, _y - 1, 8);
-        else if (map[(_x)+(_y - 1) * 8].x == 6)
-            editPiece(_x, _y - 1, 7);
+        if (!isNextCellCheckable(_x, _y - 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x, _y - 1) != 6)
+                editPiece(_x, _y - 1, 8);
+            else if (map[(_x)+(_y - 1) * 8].x == 6)
+                editPiece(_x, _y - 1, 7);
     }
     if (_x < 7)
     {
-        if (_opponentMap.returnPiece(_x + 1, _y) != 6)
-            editPiece(_x + 1, _y, 8);
-        else if (map[(_x + 1)+(_y) * 8].x == 6)
-            editPiece(_x + 1, _y, 7);
+        if (!isNextCellCheckable(_x + 1, _y, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x + 1, _y) != 6)
+                editPiece(_x + 1, _y, 8);
+            else if (map[(_x + 1)+(_y) * 8].x == 6)
+                editPiece(_x + 1, _y, 7);
     }
     if (_x > 0)
     {
-        if (_opponentMap.returnPiece(_x - 1, _y) != 6)
-            editPiece(_x - 1, _y, 8);
-        else if (map[(_x - 1) + (_y) * 8].x == 6)
-            editPiece(_x - 1, _y, 7);
+        if (!isNextCellCheckable(_x - 1, _y, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x - 1, _y) != 6)
+                editPiece(_x - 1, _y, 8);
+            else if (map[(_x - 1) + (_y) * 8].x == 6)
+                editPiece(_x - 1, _y, 7);
     }
     if (_y > 0 && _x < 7)
     {
-        if (_opponentMap.returnPiece(_x + 1 , _y - 1) != 6)
-            editPiece(_x + 1, _y - 1, 8);
-        else if (map[(_x + 1)+(_y - 1) * 8].x == 6)
-            editPiece(_x + 1, _y - 1, 7);
+        if (!isNextCellCheckable(_x + 1, _y - 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x + 1 , _y - 1) != 6)
+                editPiece(_x + 1, _y - 1, 8);
+            else if (map[(_x + 1)+(_y - 1) * 8].x == 6)
+                editPiece(_x + 1, _y - 1, 7);
     }
     if (_y > 0 && _x > 0)
     {
-        if (_opponentMap.returnPiece(_x - 1, _y - 1) != 6)
-            editPiece(_x - 1, _y - 1, 8);
-        else if (map[(_x - 1)+(_y - 1) * 8].x == 6)
-            editPiece(_x - 1, _y - 1, 7);
+        if (!isNextCellCheckable(_x - 1, _y - 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x - 1, _y - 1) != 6)
+                editPiece(_x - 1, _y - 1, 8);
+            else if (map[(_x - 1)+(_y - 1) * 8].x == 6)
+                editPiece(_x - 1, _y - 1, 7);
     }
     if (_y < 7 && _x < 7)
     {
-        if (_opponentMap.returnPiece(_x + 1, _y + 1) != 6)
-            editPiece(_x + 1, _y + 1, 8);
-        else if (map[(_x + 1)+(_y + 1) * 8].x == 6)
-            editPiece(_x + 1, _y + 1, 7);
+        if (!isNextCellCheckable(_x + 1, _y + 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x + 1, _y + 1) != 6)
+                editPiece(_x + 1, _y + 1, 8);
+            else if (map[(_x + 1)+(_y + 1) * 8].x == 6)
+                editPiece(_x + 1, _y + 1, 7);
     }
     if (_y < 7 && _x > 0)
     {
-        if (_opponentMap.returnPiece(_x - 1, _y + 1) != 6)
-            editPiece(_x - 1, _y + 1, 8);
-        else if (map[(_x - 1)+(_y + 1) * 8].x == 6)
-            editPiece(_x - 1, _y + 1, 7);
+        if (!isNextCellCheckable(_x - 1, _y + 1, _opponentMap, team))
+            if (_opponentMap.returnPiece(_x - 1, _y + 1) != 6)
+                editPiece(_x - 1, _y + 1, 8);
+            else if (map[(_x - 1)+(_y + 1) * 8].x == 6)
+                editPiece(_x - 1, _y + 1, 7);
     }
+    for (int i = 0; i < 64; i++)
+    {
+        if (map[i].x == 7 || map[i].x == 8)
+            return true;
+    }
+    return false;
+
 
 }
-void Map::showRookMoves(int _x, int _y, Map _opponentMap)
+void Map::showRookMoves(int _x, int _y, Map _opponentMap, bool isChecked)
 {
     for (int i = 1; i < 8; i++)
     {
@@ -240,7 +267,7 @@ void Map::showRookMoves(int _x, int _y, Map _opponentMap)
         }
     }
 }
-void Map::showBishopMoves(int _x, int _y, Map _opponentMap)
+void Map::showBishopMoves(int _x, int _y, Map _opponentMap, bool isChecked)
 {
     for (int i = 1; i < 8; i++)
     {
@@ -323,8 +350,7 @@ void Map::showBishopMoves(int _x, int _y, Map _opponentMap)
         }
     }
 }
-
-void Map::showKnightMoves(int _x, int _y, Map _opponentMap)
+void Map::showKnightMoves(int _x, int _y, Map _opponentMap, bool isChecked)
 {
     if (_y < 6 && _x > 0)
     {
@@ -389,7 +415,7 @@ void Map::showKnightMoves(int _x, int _y, Map _opponentMap)
             editPiece(_x + 2, _y + 1, 7);
     }
 }
-void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _opponentMap)
+void Map::showPawnMoves(int _x, int _y, sf::Color _team, Map _opponentMap, bool isChecked)
 {
     if (_team == sf::Color::White)
     {
@@ -497,7 +523,6 @@ bool Map::isCheckedByRookAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 
     return false;
 }
-
 bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 {
     sf::Vector2i opponentNearest = getNearest(_x, _y, opponentMap, 1);
@@ -522,19 +547,110 @@ bool Map::isCheckedByBishopAndMoitieDeQueen(int _x, int _y, Map opponentMap)
 
     return false;
 }
-
-bool Map::isCheckedByPawn(int _x, int _y, Map opponentMap)
+bool Map::isCheckedByPawn(int _x, int _y, Map opponentMap, sf::Color team)
 {
+    if (team == sf::Color::White)
+    {
+        if (_y < 7)
+        {
+            if(_x > 0)
+                if (opponentMap.returnPiece(_x - 1, _y + 1) == pawn)
+                    return true;
+            if(_x < 7)
+                if (opponentMap.returnPiece(_x + 1, _y + 1) == pawn)
+                    return true;
+        }
+        return false;   
+    }
+    else if (team == sf::Color::Black)
+    {
+        if (_y < 7)
+        {
+            if(_x > 0)
+                if (opponentMap.returnPiece(_x - 1, _y + 1) == pawn)
+                    return true;
+            if(_x < 7)
+                if (opponentMap.returnPiece(_x + 1, _y + 1) == pawn)
+                    return true;
+        }
+        return false;
+    }
     return false;
 }
-
 bool Map::isCheckedByKnight(int _x, int _y, Map opponentMap)
 {
+    if (_x > 1)
+    {
+        if (_y > 0)
+            if (opponentMap.returnPiece(_x - 2, _y - 1) == knight)
+                return true;
+        if (_y < 7)
+            if (opponentMap.returnPiece(_x - 2, _y + 1) == knight)
+                return true;
+    }
+    if (_x < 6)
+    {
+        if (_y > 0)
+            if (opponentMap.returnPiece(_x + 2, _y - 1) == knight)
+                return true;
+        if (_y < 7)
+            if (opponentMap.returnPiece(_x + 2, _y + 1) == knight)
+                return true;
+    }
+    if (_y > 1)
+    {
+        if (_x > 0)
+            if (opponentMap.returnPiece(_x - 1, _y - 2) == knight)
+                return true;
+        if (_x < 7)
+            if (opponentMap.returnPiece(_x + 1, _y - 2) == knight)
+                return true;
+    }
+    if (_y < 6)
+    {
+        if (_x > 0)
+            if (opponentMap.returnPiece(_x - 1, _y + 2) == knight)
+                return true;
+        if (_x < 7)
+            if (opponentMap.returnPiece(_x + 1, _y + 2) == knight)
+                return true;
+    }
     return false;
 }
-
-bool Map::isCheckedByQueen(int _x, int _y, Map opponentMap)
+bool Map::isCheckedByKing(int _x, int _y, Map opponentMap)
 {
+    if (_y < 7)
+    {
+        if (opponentMap.returnPiece(_x, _y + 1) == king)
+            return true;
+
+        if (_x > 0)
+            if (opponentMap.returnPiece(_x - 1, _y + 1) == king)
+                return true;
+        if (_x < 7)
+            if (opponentMap.returnPiece(_x + 1, _y + 1) == king)
+                return true;
+    }
+    if (_y > 0)
+    {
+        if (opponentMap.returnPiece(_x, _y - 1) == king)
+            return true;
+
+        if (_x < 7)
+            if (opponentMap.returnPiece(_x + 1, _y + 1) == king)
+                return true;
+        if (_x > 0)
+            if (opponentMap.returnPiece(_x - 1, _y + 1) == king)
+                return true;
+    }
+    if(_x > 0)
+        if (opponentMap.returnPiece(_x - 1, _y) == king)
+            return true;
+    
+    if(_x < 7)
+        if (opponentMap.returnPiece(_x + 1, _y) == king)
+            return true;
+
     return false;
 }
 
@@ -546,7 +662,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_y - i >= 0)
             {
-                if (map.returnPiece(_x, _y - i) != 6)
+                if (map.returnPiece(_x, _y - i) != 6 && map.returnPiece(_x, _y - i) != 7 && map.returnPiece(_x, _y - i) != 8)
                     return { _x, _y - i };
             }
             else
@@ -560,7 +676,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_y - i >= 0 && _x + i <= 7)
             {
-                if (map.returnPiece(_x + i, _y - i) != 6)
+                if (map.returnPiece(_x + i, _y - i) != 6 && map.returnPiece(_x + i, _y - i) != 7 && map.returnPiece(_x + i, _y - i) != 8)
                     return { _x + i, _y - i };
             }
             else
@@ -574,7 +690,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_x + i <= 7)
             {
-                if (map.returnPiece(_x + i, _y) != 6)
+                if (map.returnPiece(_x + i, _y) != 6 && map.returnPiece(_x + i, _y) != 7 && map.returnPiece(_x + i, _y) != 8)
                     return { _x + i, _y };
             }
             else
@@ -588,21 +704,21 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_y + i <= 7 && _x + i <= 7)
             {
-                if (map.returnPiece(_x + i, _y + i) != 6)
+                if (map.returnPiece(_x + i, _y + i) != 6 && map.returnPiece(_x + i, _y + i) != 7 && map.returnPiece(_x + i, _y + i) != 8)
                     return { _x + i, _y + i };
             }
             else
                 return { -1, -1 };
         }
+        return { -1, -1 };
     }
-    return { -1, -1 };
     if (_type == 4) // En bas
     {
         for (int i = 1; i < 8; i++)
         {
             if (_y + i <= 7)
             {
-                if (map.returnPiece(_x, _y + i) != 6)
+                if (map.returnPiece(_x, _y + i) != 6 && map.returnPiece(_x, _y + i) != 7 && map.returnPiece(_x, _y + i) != 8)
                     return { _x, _y + i };
             }
             else
@@ -616,7 +732,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_y + i <= 7 && _x - i >= 0)
             {
-                if (map.returnPiece(_x - i, _y + i) != 6)
+                if (map.returnPiece(_x - i, _y + i) != 6 && map.returnPiece(_x - i, _y + i) != 7 && map.returnPiece(_x - i, _y + i) != 8)
                     return { _x - i, _y + i };
             }
             else
@@ -630,7 +746,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_x - i >= 0)
             {
-                if (map.returnPiece(_x - i, _y) != 6)
+                if (map.returnPiece(_x - i, _y) != 6 && map.returnPiece(_x - i, _y) != 7 && map.returnPiece(_x - i, _y) != 8)
                     return { _x - i, _y };
             }
             else
@@ -644,7 +760,7 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         {
             if (_y - i >= 0 && _x - i >= 0)
             {
-                if (map.returnPiece(_x - i, _y - i) != 6)
+                if (map.returnPiece(_x - i, _y - i) != 6 && map.returnPiece(_x - i, _y - i) != 7 && map.returnPiece(_x - i, _y - i) != 8)
                     return { _x - i, _y - i };
             }
             else
@@ -653,7 +769,6 @@ sf::Vector2i Map::getNearest(int _x, int _y, Map map, int _type)
         return { -1, -1 };
     }
 }
-
 bool Map::isCheckOrProtected(int _x, int _y, sf::Vector2i _player, sf::Vector2i _opponent, Map _opponentMap, sf::Vector2i _checkers)
 {
     if (_opponent != sf::Vector2i{ -1, -1 })
@@ -670,6 +785,19 @@ bool Map::isCheckOrProtected(int _x, int _y, sf::Vector2i _player, sf::Vector2i 
         }
     }
     return false;
+}
+
+bool Map::isNextCellCheckable(int _x, int _y, Map opponentMap, sf::Color team)
+{
+    bool checked = isCheckedByRookAndMoitieDeQueen(_x, _y, opponentMap);
+    if (!checked)
+        checked = isCheckedByBishopAndMoitieDeQueen(_x, _y, opponentMap);
+    if (!checked)
+        checked = isCheckedByPawn(_x, _y, opponentMap, team);
+    if (!checked)
+        checked = isCheckedByKnight(_x, _y, opponentMap);
+
+    return checked;
 }
 
 int Map::returnPiece(int _x, int _y)
