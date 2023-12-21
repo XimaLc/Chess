@@ -206,6 +206,8 @@ void Game::reset()
 
 Game::Game()
 {
+	window.create(sf::VideoMode(512, 512), "Chessthan");
+
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 
