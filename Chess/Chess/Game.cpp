@@ -96,7 +96,7 @@ void Game::loop()
 					{
 						if (pixelPos.x > 0 && pixelPos.x < window.getSize().x && pixelPos.y > 0 && pixelPos.y < window.getSize().y)
 						{
-							if (p1.getPieces().returnPiece(x, y) != 6 && p1.getPieces().returnPiece(x, y) != 7 && p1.getPieces().returnPiece(x, y) != 8)
+							if (p1.getPieces().returnPiece(x, y).x != 6 && p1.getPieces().returnPiece(x, y).x != 7 && p1.getPieces().returnPiece(x, y).x != 8)
 							{
 								clickedPiece = { x, y };
 								p1.resetPossibleMoves();
@@ -104,17 +104,14 @@ void Game::loop()
 								if (end)
 									winner = "BLACK";
 							}
-							else if (p1.getPieces().returnPiece(x, y) == 7)
+							else if (p1.getPieces().returnPiece(x, y).x == 7)
 							{
 								p1played = p1.move(x, y, clickedPiece);
 
 								isP2Checked = p2.checkIfChecked(p1);
-								std::cout << isP2Checked << " / P2 - 1" << std::endl;
-
 								isP1Checked = p1.checkIfChecked(p2);
-								std::cout << isP1Checked << " / P1 - 3" << std::endl;
 							}
-							else if (p1.getPieces().returnPiece(x, y) == 8)
+							else if (p1.getPieces().returnPiece(x, y).x == 8)
 							{
 								end = p1.checkIfEnd(x, y, p2);
 								if (end)
@@ -122,10 +119,7 @@ void Game::loop()
 								p1played = p1.eat(x, y, clickedPiece, p2);
 
 								isP2Checked = p2.checkIfChecked(p1);
-								std::cout << isP2Checked << " / P2 - 2" << std::endl;
-
 								isP1Checked = p1.checkIfChecked(p2);
-								std::cout << isP1Checked << " / P1 - 4" << std::endl;
 							}
 						}
 					}
@@ -136,7 +130,7 @@ void Game::loop()
 					{
 						if (pixelPos.x > 0 && pixelPos.x < window.getSize().x && pixelPos.y > 0 && pixelPos.y < window.getSize().y)
 						{
-							if (p2.getPieces().returnPiece(x, y) != 6 && p2.getPieces().returnPiece(x, y) != 7 && p2.getPieces().returnPiece(x, y) != 8)
+							if (p2.getPieces().returnPiece(x, y).x != 6 && p2.getPieces().returnPiece(x, y).x != 7 && p2.getPieces().returnPiece(x, y).x != 8)
 							{
 								clickedPiece = { x, y };
 								p2.resetPossibleMoves();
@@ -144,7 +138,7 @@ void Game::loop()
 								if (end)
 									winner = "WHITE";
 							}
-							else if (p2.getPieces().returnPiece(x, y) == 7)
+							else if (p2.getPieces().returnPiece(x, y).x == 7)
 							{
 								p2played = p2.move(x, y, clickedPiece);
 
@@ -154,7 +148,7 @@ void Game::loop()
 								isP2Checked = p2.checkIfChecked(p1);
 								std::cout << isP2Checked << " / P2 - 3" << std::endl;
 							}
-							else if (p2.getPieces().returnPiece(x, y) == 8)
+							else if (p2.getPieces().returnPiece(x, y).x == 8)
 							{
 								end = p2.checkIfEnd(x, y, p1);
 								if (end)
@@ -187,7 +181,7 @@ void Game::loop()
 		window.clear();
 		if (!end)
 		{
-			map.draw(window);
+			map.draw(window, 0);
 			p1.drawPieces(window);
 			p2.drawPieces(window);
 		}
@@ -212,14 +206,12 @@ void Game::reset()
 
 Game::Game()
 {
-	window.create(sf::VideoMode(512, 512), "Chessthan");
-
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 
-	map.setTexture("../Files/Textures/tiles.png");
-	p1.setMapTexture("../Files/Textures/piecesW.png");
-	p2.setMapTexture("../Files/Textures/piecesB.png");
+	map.setTexture("../Files/Textures/tiles.png", 0);
+	p1.setMapTexture("../Files/Textures/piecesW.png", 0);
+	p2.setMapTexture("../Files/Textures/piecesBPersos.png", 0);
 
 	map.fill();
 	p1.fillPieces();
