@@ -2,7 +2,17 @@
 
 sf::Clock clocks;
 sf::Time times;
+int state;
 
+void setState(int _state)
+{
+	state = _state;
+}
+
+int getState()
+{
+	return state;
+}
 
 void initTools()
 {

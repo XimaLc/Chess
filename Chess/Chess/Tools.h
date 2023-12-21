@@ -30,6 +30,12 @@
 //	à mettre obligatoirement dans votre init 
 //	pour utiliser les fonctions de cette bibliothèque
 //-----------------------------------------------------------
+enum state {menu, game, options};
+
+
+void setState(int state);
+int getState();
+
 void initTools();
 
 float GetDeltaTime();
