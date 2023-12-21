@@ -16,18 +16,19 @@ private:
 	sf::Sprite sprite;
 
 	std::vector<sf::Vector2i> map;
+	bool isPerso;
 public:
-	void setTexture(std::string _file);
+	void setTexture(std::string _file, bool _isPerso);
 	void setSprite();
 
 	void fill();
 	void white();
 	void black();
 
-	int returnPiece(int _x, int _y);
-	int returnPiece(sf::Vector2i _pos);
+	sf::Vector2i returnPiece(int _x, int _y);
+	sf::Vector2i returnPiece(sf::Vector2i _pos);
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, bool isPlayer);
 
 	bool showKingMoves(int _x, int _y, Map _opponent, sf::Color team);
 	void showRookMoves(int _x, int _y, Map _opponent, bool isChecked);
@@ -37,6 +38,9 @@ public:
 	
 	void resetPossibleMoves();
 
+	void editPiece(int _x, int _y, sf::Vector2i _newPiece);
+	void editPiece(sf::Vector2i _pos, sf::Vector2i _newPiece);
+	
 	void editPiece(int _x, int _y, int _newPiece);
 	void editPiece(sf::Vector2i _pos, int _newPiece);
 
