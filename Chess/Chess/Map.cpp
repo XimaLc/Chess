@@ -59,30 +59,30 @@ void Map::white()
 void Map::black()
 {
     map.clear();
-    for (int i = 0; i < 27; i++)
-    {
-        map.push_back(sf::Vector2i{ none, 0 });
-    }
-    //map.push_back(sf::Vector2i{ rook, 0 });
-    //map.push_back(sf::Vector2i{ knight, 0 });
-    //map.push_back(sf::Vector2i{ bishop, 0 });
-    map.push_back(sf::Vector2i{ king, 0 });
-    //map.push_back(sf::Vector2i{ queen, 0 });
-    //map.push_back(sf::Vector2i{ bishop, 0 });
-    //map.push_back(sf::Vector2i{ knight, 0 });
-    //map.push_back(sf::Vector2i{ rook, 0 });
-    //for (int i = 8; i < 16; i++)
-    //{
-    //    map.push_back(sf::Vector2i{ pawn, 0 });
-    //}
-    //for (int i = 16; i < 64; i++)
+    //for (int i = 0; i < 27; i++)
     //{
     //    map.push_back(sf::Vector2i{ none, 0 });
     //}
-    for (int i = 28; i < 64; i++)
+    map.push_back(sf::Vector2i{ rook, 0 });
+    map.push_back(sf::Vector2i{ knight, 0 });
+    map.push_back(sf::Vector2i{ bishop, 0 });
+    map.push_back(sf::Vector2i{ king, 0 });
+    map.push_back(sf::Vector2i{ queen, 0 });
+    map.push_back(sf::Vector2i{ bishop, 0 });
+    map.push_back(sf::Vector2i{ knight, 0 });
+    map.push_back(sf::Vector2i{ rook, 0 });
+    for (int i = 8; i < 16; i++)
+    {
+        map.push_back(sf::Vector2i{ pawn, 0 });
+    }
+    for (int i = 16; i < 64; i++)
     {
         map.push_back(sf::Vector2i{ none, 0 });
     }
+    //for (int i = 28; i < 64; i++)
+    //{
+    //    map.push_back(sf::Vector2i{ none, 0 });
+    //}
 }
 
 void Map::draw(sf::RenderWindow& _window)
