@@ -10,17 +10,18 @@ private:
 	Map pieces;
 public:
 	Map getPieces();
-	int getPiece(int _x, int _y);
+	sf::Vector2i getPiece(int _x, int _y);
 
 	void setColor(sf::Color _color);
 
 	void fillPieces();
 	void drawPieces(sf::RenderWindow& window);
-	void setMapTexture(std::string _file);
+	void setMapTexture(std::string _file, bool isPerso);
 
 	void resetPossibleMoves();
 	bool getPossibleMoves(int _x, int _y, Map opponentMap, bool isChecked);
 
+	void editPiece(int _x, int _y, sf::Vector2i _piece);
 	void editPiece(int _x, int _y, int _piece);
 
 	bool move(int _x, int _y, sf::Vector2i _piece);

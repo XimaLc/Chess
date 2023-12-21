@@ -5,7 +5,7 @@ Map Player::getPieces()
 	return pieces;
 }
 
-int Player::getPiece(int _x, int _y)
+sf::Vector2i Player::getPiece(int _x, int _y)
 {
 	return pieces.returnPiece({_x, _y});
 }
@@ -30,12 +30,12 @@ void Player::fillPieces()
 
 void Player::drawPieces(sf::RenderWindow& window)
 {
-	pieces.draw(window);
+	pieces.draw(window, 1);
 }
 
-void Player::setMapTexture(std::string _file)
+void Player::setMapTexture(std::string _file, bool isPerso)
 {
-	pieces.setTexture(_file);
+	pieces.setTexture(_file, isPerso);
 }
 
 void Player::resetPossibleMoves()
@@ -45,7 +45,7 @@ void Player::resetPossibleMoves()
 
 bool Player::getPossibleMoves(int _x, int _y, Map opponentMap, bool isChecked)
 {
-	int p = pieces.returnPiece(_x, _y);
+	int p = pieces.returnPiece(_x, _y).x;
 
 	switch (p)
 	{
@@ -84,6 +84,11 @@ bool Player::getPossibleMoves(int _x, int _y, Map opponentMap, bool isChecked)
 	}
 }
 
+void Player::editPiece(int _x, int _y, sf::Vector2i _piece)
+{
+	pieces.editPiece(_x, _y, _piece);
+}
+
 void Player::editPiece(int _x, int _y, int _piece)
 {
 	pieces.editPiece(_x, _y, _piece);
@@ -91,9 +96,9 @@ void Player::editPiece(int _x, int _y, int _piece)
 
 bool Player::move(int _x, int _y, sf::Vector2i _piece) 
 {
-	int piece = pieces.returnPiece(_piece);
-	if (piece == 5 && (_y == 0 || _y == 7))
-		piece = 1;
+	sf::Vector2i piece = pieces.returnPiece(_piece);
+	if (piece.x == 5 && (_y == 0 || _y == 7))
+		piece.x = 1;
 	pieces.editPiece(_piece, 6);
 	pieces.editPiece(_x, _y, piece);
 	pieces.resetPossibleMoves();
@@ -102,7 +107,7 @@ bool Player::move(int _x, int _y, sf::Vector2i _piece)
 
 bool Player::move(int _x, int _y, int _prevX, int _prevY)
 {
-	int piece = pieces.returnPiece(_prevX, _prevY);
+	int piece = pieces.returnPiece(_prevX, _prevY).x;
 	if (piece == 5 && (_y == 0 || _y == 7))
 		piece = 1;
 	pieces.editPiece(_prevX, _prevY, 6);
@@ -113,9 +118,9 @@ bool Player::move(int _x, int _y, int _prevX, int _prevY)
 
 int Player::eat(int _x, int _y, sf::Vector2i _piece, Player& opponent)
 {
-	int piece = pieces.returnPiece(_piece);
-	if(piece == 5 && (_y == 0 || _y ==7))
-		piece = 1;
+	sf::Vector2i piece = pieces.returnPiece(_piece);
+	if(piece.x == 5 && (_y == 0 || _y ==7))
+		piece.x = 1;
 	pieces.editPiece(_piece, 6);
 	pieces.editPiece(_x, _y, piece);
 	opponent.editPiece(_x, _y, 6);
@@ -125,7 +130,9 @@ int Player::eat(int _x, int _y, sf::Vector2i _piece, Player& opponent)
 
 int Player::eat(int _x, int _y, int _prevX, int _prevY, Player& opponent)
 {
-	int piece = pieces.returnPiece(_prevX, _prevY);
+	sf::Vector2i piece = pieces.returnPiece(_prevX, _prevY);
+	if (piece.x == 5 && (_y == 0 || _y == 7))
+		piece.x = 1;
 	pieces.editPiece(_prevX, _prevY, 6);
 	pieces.editPiece(_x, _y, piece);
 	opponent.editPiece(_x, _y, 6);
@@ -157,7 +164,7 @@ bool Player::checkIfChecked(Player opponent)
 
 bool Player::checkIfEnd(int _x, int _y, Player& opponent)
 {
-	if (opponent.getPiece(_x, _y) == 0)
+	if (opponent.getPiece(_x, _y).x == 0)
 		return true;
 
 	return false;
