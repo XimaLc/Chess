@@ -217,7 +217,7 @@ Game::Game()
 	p1.setColor(sf::Color::White);
 	p2.setColor(sf::Color::Black);
 
-	map.setTexture("../Files/Textures/tiles.png");
+	map.setTexture("../Files/Textures/tilesPerso.png");
 	p1.setMapTexture("../Files/Textures/piecesW.png");
 	p2.setMapTexture("../Files/Textures/piecesB.png");
 
