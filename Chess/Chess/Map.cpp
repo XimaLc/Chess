@@ -73,8 +73,8 @@ void Map::black()
     map.push_back(sf::Vector2i{ rook, 0 });
     map.push_back(sf::Vector2i{ knight, 0 });
     map.push_back(sf::Vector2i{ bishop, 0 });
-    map.push_back(sf::Vector2i{ king, 0 });
     map.push_back(sf::Vector2i{ queen, 0 });
+    map.push_back(sf::Vector2i{ king, 0 });
     map.push_back(sf::Vector2i{ bishop, 0 });
     map.push_back(sf::Vector2i{ knight, 0 });
     map.push_back(sf::Vector2i{ rook, 0 });
