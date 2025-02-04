@@ -1,7 +1,8 @@
-#include "Game.h"
+#include "StateManager.h"
 
 int main()
 {
-	Game game;
+	StateManager sm;
+
 	return 1;
 }
